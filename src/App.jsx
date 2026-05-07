@@ -179,7 +179,6 @@ export default function App() {
           <div className="gallery__grid">
             {[
               { label: "Breakfast Plates", size: "tall", color: "#C8A882" },
-              { label: "Coffee Art", size: "normal", color: "#8B6F47" },
               { label: "Desserts", size: "normal", color: "#D4A96A" },
               { label: "Pizza", size: "wide", color: "#B07D5A" },
               { label: "Interior", size: "normal", color: "#9E8060" },
