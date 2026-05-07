@@ -180,10 +180,10 @@ export default function App() {
             {[
               { label: "Breakfast Plates", size: "tall", color: "#C8A882" },
               { label: "Desserts", size: "normal", color: "#D4A96A" },
-              { label: "Pizza", size: "wide", color: "#B07D5A" },
+              { label: "Pizza", size: "normal", color: "#B07D5A" },
               { label: "Interior", size: "normal", color: "#9E8060" },
-              { label: "Table Setup", size: "tall", color: "#C4956A" },
-              { label: "Happy Guests", size: "normal", color: "#A07850" },
+              { label: "Table Setup", size: "normal", color: "#C4956A" },
+              { label: "Happy Guests", size: "tall", color: "#A07850" },
             ].map((item, i) => (
               <div className={`gallery__item gallery__item--${item.size} reveal`} key={i}
                 style={{ background: item.color, animationDelay: `${i * 0.06}s` }}>
