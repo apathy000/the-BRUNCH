@@ -103,7 +103,6 @@ export default function App() {
   return (
     <div className="app">
 
-      {/* ── NAV ── */}
       <nav className={`nav ${scrolled ? "nav--scrolled" : ""}`}>
         <div className="nav__logo" onClick={() => scrollTo("hero")}>
           <img src="/logo.jpg" alt="The Brunch Cafe & Kitchen" className="nav__logo-img" />
@@ -119,12 +118,10 @@ export default function App() {
         </button>
       </nav>
 
-      {/* ── STICKY CTA ── */}
       <a className={`sticky-cta ${scrolled ? "sticky-cta--visible" : ""}`} onClick={() => scrollTo("contact")}>
         Reserve a Spot
       </a>
 
-      {/* ── HERO ── */}
       <section id="hero" className="hero">
         <div className="hero__bg">
           <div className="hero__overlay" />
@@ -160,7 +157,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* ── STATS ── */}
       <section className="stats">
         <div className="container">
           {[
@@ -177,7 +173,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* ── FEATURES ── */}
       <section id="menu" className="features">
         <div className="container">
           <div className="section-header reveal">
@@ -197,7 +192,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* ── GALLERY ── */}
       <section id="gallery" className="gallery">
         <div className="container">
           <div className="section-header reveal">
@@ -225,7 +219,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* ── MENU PREVIEW ── */}
       <section className="menu-section">
         <div className="container">
           <div className="section-header reveal">
@@ -260,7 +253,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* ── ABOUT ── */}
       <section id="about" className="about">
         <div className="container about__layout">
           <div className="about__visual reveal">
@@ -283,7 +275,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* ── REVIEWS ── */}
       <section id="reviews" className="reviews">
         <div className="container">
           <div className="section-header reveal">
@@ -306,7 +297,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* ── WHY US ── */}
       <section className="why-us">
         <div className="container">
           <div className="section-header reveal">
@@ -332,12 +322,10 @@ export default function App() {
         </div>
       </section>
 
-      {/* ── CONTACT / VISIT US ── */}
       <section id="contact" className="visit">
         <div className="container">
           <div className="visit__layout">
 
-            {/* Left — info */}
             <div className="visit__info reveal">
               <span className="section-tag">Come Find Us</span>
               <h2>A Table Is Waiting<br /><em>Just for You.</em></h2>
@@ -380,7 +368,6 @@ export default function App() {
               </div>
             </div>
 
-            {/* Right — visual card */}
             <div className="visit__card reveal">
               <div className="visit__card-inner">
                 <div className="visit__card-logo">
@@ -415,7 +402,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* ── FOOTER ── */}
       <footer className="footer">
         <div className="container footer__layout">
           <div className="footer__brand">
