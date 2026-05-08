@@ -200,12 +200,12 @@ export default function App() {
           </div>
           <div className="gallery__grid">
             {[
-              { label: "Happy Guests", size: "tall", color: "#C8A882" },
-              { label: "Desserts", size: "normal", color: "#D4A96A" },
-              { label: "Pizza", size: "normal", color: "#B07D5A" },
-              { label: "Interior", size: "tall", color: "#9E8060" },
-              { label: "Coffee Art", size: "normal", color: "#C4956A" },
-              { label: "Breakfast Plates", size: "normal", color: "#A07850" },
+              { label: "Happy Guests", size: "tall", image: "/hpguest.jpg" },
+              { label: "Desserts", size: "normal", image: "/deserts.jpg" },
+              { label: "Pizza", size: "normal", image: "/pizza.jpg" },
+              { label: "Interior", size: "tall", image: "/interior.jpg" },
+              { label: "Coffee Art", size: "normal", image: "/cfart.jpg" },
+              { label: "Breakfast Plates", size: "normal", image: "/breakfast.jpg" },
             ].map((item, i) => (
               <div className={`gallery__item gallery__item--${item.size} reveal`} key={i}
                 style={{ background: item.color, animationDelay: `${i * 0.06}s` }}>
