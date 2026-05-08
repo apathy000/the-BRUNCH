@@ -72,15 +72,19 @@ const FEATURES = [
   { icon: "○", title: "Cozy Atmosphere", desc: "Natural light, warm textures, and a pace of life that encourages you to stay a little longer." },
 ];
 
-function useScrollReveal() {
+function useScrollReveal(deps = []) {
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach(e => e.isIntersecting && e.target.classList.add("revealed")),
-      { threshold: 0.12 }
-    );
-    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
+    // Small delay so new DOM elements are rendered before we observe
+    const timer = setTimeout(() => {
+      const observer = new IntersectionObserver(
+        (entries) => entries.forEach(e => e.isIntersecting && e.target.classList.add("revealed")),
+        { threshold: 0.12 }
+      );
+      document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+      return () => observer.disconnect();
+    }, 50);
+    return () => clearTimeout(timer);
+  }, deps); // ← now re-runs when deps change
 }
 
 export default function App() {
