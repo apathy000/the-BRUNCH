@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 
 const NAV_LINKS = ["Menu", "About", "Gallery", "Reviews", "Contact"];
@@ -13,25 +13,53 @@ const REVIEWS = [
 ];
 
 const MENU_ITEMS = [
-  { category: "Breakfasts", emoji: "🍳", items: [
-    { name: "The BRUNCH Classic", desc: "Eggs benedict, prosciutto, hollandaise, toasted brioche", price: "3,200" },
-    { name: "Avocado Sunrise", desc: "Sourdough, smashed avocado, poached eggs, microgreens", price: "2,800" },
-    { name: "Shakshuka Royale", desc: "Spiced tomato, feta, slow-poached eggs, warm flatbread", price: "2,600" },
+  { category: "Breakfast", emoji: "🍳", items: [
+    { name: "English Breakfast", desc: "Toast, mixed salad, village potatoes, tomato, sausage, bacon, feta cheese and 2 eggs of your choice", price: "3,700" },
+    { name: "The Brunch Bowl", desc: "Boiled egg, sautéed spinach, avocado, ricotta, cherry tomatoes and quinoa", price: "3,900" },
+    { name: "Breakfast with Smoked Salmon", desc: "Smoked salmon, guacamole, omelette, salad and crusty bread", price: "4,400" },
+    { name: "Oatmeal Brûlée", desc: "Oatmeal, milk, berries, stracciatella — the perfect slow morning", price: "2,300" },
+    { name: "Porridge with Berries & Meringue", desc: "Warm porridge with seasonal berries and house meringue", price: "2,400" },
+    { name: "Cottage Cheese Balls", desc: "Classic syrniki with berry jam and sour cream", price: "3,100" },
   ]},
-  { category: "Thin Pizzas", emoji: "🍕", items: [
-    { name: "Margherita Naturale", desc: "San Marzano tomato, buffalo mozzarella, fresh basil", price: "3,800" },
-    { name: "Truffle & Mushroom", desc: "Wild mushrooms, truffle oil, gruyère, rosemary", price: "4,200" },
-    { name: "Fig & Prosciutto", desc: "Caramelized fig, cured prosciutto, arugula, ricotta", price: "4,400" },
+  { category: "Pizza", emoji: "🍕", items: [
+    { name: "Margharita", desc: "Classic tomato base, fresh mozzarella, basil", price: "3,500" },
+    { name: "Pepperoni", desc: "Spicy pepperoni, tomato sauce, mozzarella", price: "3,900" },
+    { name: "Ham & Mushroom", desc: "Ham, mushrooms, mozzarella, tomato base", price: "3,600" },
+    { name: "Spinach Feta", desc: "Spinach, feta cheese, white sauce, walnuts", price: "3,900" },
+    { name: "Prosciutto & Arugula", desc: "Prosciutto, fresh arugula, parmesan, tomato base", price: "5,800" },
+    { name: "Signature Quattro Formaggi", desc: "Four-cheese blend on a golden crispy base", price: "4,800" },
   ]},
-  { category: "Coffee", emoji: "☕", items: [
-    { name: "Single Origin Pour Over", desc: "Ethiopian Yirgacheffe, light roast, floral notes", price: "1,200" },
-    { name: "Signature Latte", desc: "House blend espresso, oat milk, vanilla, latte art", price: "1,400" },
-    { name: "Cold Brew Tonic", desc: "18-hour brew, tonic water, citrus, served over ice", price: "1,600" },
+  { category: "Salads", emoji: "🥗", items: [
+    { name: "Burrata & Avocado", desc: "Burrata, avocado, cherry tomatoes, spinach pesto, basil", price: "5,900" },
+    { name: "Caesar with Chicken", desc: "Classic caesar, grilled chicken breast", price: "3,500" },
+    { name: "Barbados Salad", desc: "Marble beef, marinated onion, bell pepper, avocado, mix salad, ranch sauce", price: "4,800" },
+    { name: "Salmon & Quinoa", desc: "Salmon and quinoa salad", price: "4,900" },
+    { name: "Detox Salad", desc: "Green apple, quinoa, mix salad, avocado", price: "3,200" },
+    { name: "Ranch with Shrimps & Bacon", desc: "Ranch dressing, shrimps, bacon and sweet corn", price: "4,400" },
   ]},
-  { category: "Desserts", emoji: "🍋", items: [
-    { name: "Legendary Lemon Tart", desc: "French-style lemon curd, torched meringue, buttery crust", price: "1,800" },
-    { name: "Tiramisu del Giorno", desc: "Mascarpone, espresso-soaked ladyfingers, cocoa dust", price: "2,000" },
-    { name: "Honey Panna Cotta", desc: "Armenian wildflower honey, vanilla bean, berry coulis", price: "1,600" },
+  { category: "Main Courses", emoji: "🥩", items: [
+    { name: "Ribeye Steak", desc: "Premium cut ribeye steak", price: "16,900" },
+    { name: "Fillet Mignon", desc: "Tender fillet mignon with mashed potatoes and truffle sauce", price: "9,600" },
+    { name: "Sous Vide Chicken", desc: "Chicken breast with creamy spinach, cashew nuts and basil oil", price: "3,800" },
+    { name: "Grilled Salmon with Asparagus", desc: "Salmon fillet grilled, served with fresh asparagus", price: "10,600" },
+    { name: "Texas Leg", desc: "Chicken thigh, BBQ sauce, village-style potatoes", price: "3,800" },
+    { name: "Seafood Fried Rice", desc: "Rice with mussels, shrimps, seafood", price: "5,500" },
+  ]},
+  { category: "Sandwiches", emoji: "🥪", items: [
+    { name: "Steak Sandwich", desc: "Beef tenderloin, caramelized onions, gouda, tomatoes, mixed salad", price: "5,600" },
+    { name: "Philly Cheese Sandwich", desc: "Beef, mushrooms, onions, mozzarella, caramelized onions, baguette", price: "5,400" },
+    { name: "Open Sandwich — Salmon & Avocado", desc: "Salmon, avocado, spinach, creamy cheese and basil oil", price: "4,500" },
+    { name: "Beef Burger", desc: "Beef burger with village potatoes", price: "3,900" },
+    { name: "Chicken Burger", desc: "Chicken burger with french fries", price: "3,600" },
+    { name: "Croissant — Smoked Salmon & Avocado", desc: "Buttery croissant filled with smoked salmon and avocado", price: "4,600" },
+  ]},
+  { category: "Snacks", emoji: "🍤", items: [
+    { name: "Bruschetta with Prawns & Guacamole", desc: "Prawns, guacamole and cherry tomatoes on crispy bread", price: "4,600" },
+    { name: "Feta in Forno", desc: "Baked feta with cherry tomatoes", price: "2,900" },
+    { name: "Mozzarella Sticks", desc: "Golden mozzarella sticks with ranch sauce", price: "2,500" },
+    { name: "Shrimp Tempura", desc: "Crispy shrimp tempura with sweet-chili sauce", price: "3,900" },
+    { name: "Chicken Yakitori", desc: "Chicken breast, peanut sauce, sesame seeds and rice", price: "3,500" },
+    { name: "Spring Roll with Vegetables", desc: "Fresh spring rolls with vegetables", price: "2,900" },
   ]},
 ];
 
@@ -74,11 +102,11 @@ export default function App() {
 
   return (
     <div className="app">
+
       {/* ── NAV ── */}
       <nav className={`nav ${scrolled ? "nav--scrolled" : ""}`}>
         <div className="nav__logo" onClick={() => scrollTo("hero")}>
-          <span className="nav__logo-text">THE</span>
-          <span className="nav__logo-accent">BRUNCH</span>
+          <img src="/logo.jpg" alt="The Brunch Cafe & Kitchen" className="nav__logo-img" />
         </div>
         <ul className={`nav__links ${menuOpen ? "nav__links--open" : ""}`}>
           {NAV_LINKS.map(l => (
@@ -226,7 +254,7 @@ export default function App() {
           </div>
           <div className="menu-cta reveal">
             <button className="btn btn--outline" onClick={() => scrollTo("contact")}>
-              See Full Menu — Reserve a Table
+              Reserve a Table
             </button>
           </div>
         </div>
@@ -304,77 +332,85 @@ export default function App() {
         </div>
       </section>
 
-      {/* ── BOOKING ── */}
-      <section id="contact" className="booking">
-        <div className="container booking__layout">
-          <div className="booking__info reveal">
-            <span className="section-tag">Find Us</span>
-            <h2>Your Next Favorite Breakfast Starts Here.</h2>
-            <div className="booking__details">
-              <div className="booking__detail">
-                <span className="booking__detail-icon">📍</span>
-                <div>
-                  <strong>Location</strong>
-                  <p>Yerevan, Armenia</p>
+      {/* ── CONTACT / VISIT US ── */}
+      <section id="contact" className="visit">
+        <div className="container">
+          <div className="visit__layout">
+
+            {/* Left — info */}
+            <div className="visit__info reveal">
+              <span className="section-tag">Come Find Us</span>
+              <h2>A Table Is Waiting<br /><em>Just for You.</em></h2>
+              <p className="visit__desc">
+                Whether it's a slow solo morning, a family gathering, or a date — 
+                The BRUNCH has a seat with your name on it.
+              </p>
+
+              <div className="visit__details">
+                <div className="visit__detail">
+                  <div className="visit__detail-icon">📍</div>
+                  <div>
+                    <strong>Location</strong>
+                    <p>Yerevan, Armenia</p>
+                  </div>
+                </div>
+                <div className="visit__detail">
+                  <div className="visit__detail-icon">🕐</div>
+                  <div>
+                    <strong>Hours</strong>
+                    <p>Mon – Sun: 10:00 – 22:00</p>
+                    <p className="visit__hours-note">Breakfast served until 16:00</p>
+                  </div>
+                </div>
+                <div className="visit__detail">
+                  <div className="visit__detail-icon">📞</div>
+                  <div>
+                    <strong>Reservations</strong>
+                    <p>+374 XX XXX XXX</p>
+                  </div>
                 </div>
               </div>
-              <div className="booking__detail">
-                <span className="booking__detail-icon">🕐</span>
-                <div>
-                  <strong>Hours</strong>
-                  <p>Mon–Sun: 9:00 – 22:00</p>
-                </div>
-              </div>
-              <div className="booking__detail">
-                <span className="booking__detail-icon">📞</span>
-                <div>
-                  <strong>Phone</strong>
-                  <p>+374 XX XXX XXX</p>
-                </div>
+
+              <div className="visit__actions">
+                <a className="btn btn--primary" href="tel:+374XXXXXXXX">Call to Reserve</a>
+                <a className="btn btn--whatsapp" href="https://wa.me/374XXXXXXXX" target="_blank" rel="noreferrer">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                  WhatsApp
+                </a>
               </div>
             </div>
-            <div className="booking__social">
-              <a className="social-btn" href="#" aria-label="Instagram">Instagram</a>
-              <a className="social-btn social-btn--whatsapp" href="#" aria-label="WhatsApp">WhatsApp</a>
+
+            {/* Right — visual card */}
+            <div className="visit__card reveal">
+              <div className="visit__card-inner">
+                <div className="visit__card-logo">
+                  <img src="/logo.jpg" alt="The Brunch" />
+                </div>
+                <div className="visit__card-tag">Café & Kitchen</div>
+                <blockquote className="visit__card-quote">
+                  "Made for slow mornings and great conversations."
+                </blockquote>
+                <div className="visit__card-divider" />
+                <div className="visit__card-stats">
+                  <div>
+                    <span className="visit__card-stat-num">200+</span>
+                    <span className="visit__card-stat-label">Happy Guests</span>
+                  </div>
+                  <div>
+                    <span className="visit__card-stat-num">4.5★</span>
+                    <span className="visit__card-stat-label">Google Rating</span>
+                  </div>
+                  <div>
+                    <span className="visit__card-stat-num">6+</span>
+                    <span className="visit__card-stat-label">Menu Sections</span>
+                  </div>
+                </div>
+                <button className="visit__card-cta" onClick={() => window.location.href = 'tel:+374XXXXXXXX'}>
+                  Make a Reservation ✦
+                </button>
+              </div>
             </div>
-          </div>
-          <div className="booking__form-wrap reveal">
-            <h3>Reserve a Table</h3>
-            <div className="booking__form">
-              <div className="form-row">
-                <div className="form-group">
-                  <label>Your Name</label>
-                  <input type="text" placeholder="Ani Petrosyan" />
-                </div>
-                <div className="form-group">
-                  <label>Phone</label>
-                  <input type="tel" placeholder="+374 XX XXX XXX" />
-                </div>
-              </div>
-              <div className="form-row">
-                <div className="form-group">
-                  <label>Date</label>
-                  <input type="date" />
-                </div>
-                <div className="form-group">
-                  <label>Guests</label>
-                  <select>
-                    <option>1 guest</option>
-                    <option>2 guests</option>
-                    <option>3–4 guests</option>
-                    <option>5+ guests</option>
-                  </select>
-                </div>
-              </div>
-              <div className="form-group">
-                <label>Special Requests</label>
-                <textarea placeholder="Dietary needs, occasions, preferences..." rows={3} />
-              </div>
-              <button className="btn btn--primary btn--full">
-                Confirm Reservation ✦
-              </button>
-              <p className="form-note">We'll confirm your booking within 30 minutes by phone.</p>
-            </div>
+
           </div>
         </div>
       </section>
@@ -384,7 +420,7 @@ export default function App() {
         <div className="container footer__layout">
           <div className="footer__brand">
             <div className="footer__logo">
-              <span>THE</span><em>BRUNCH</em>
+              <img src="/logo.jpg" alt="The Brunch" className="footer__logo-img" />
             </div>
             <p className="footer__tagline">Made for slow mornings<br />and great conversations.</p>
           </div>
@@ -396,11 +432,11 @@ export default function App() {
           <div className="footer__contact">
             <p>Yerevan, Armenia</p>
             <p>+374 XX XXX XXX</p>
-            <p>info@thebrunch.am</p>
+            <p>Mon–Sun: 10:00 – 22:00</p>
           </div>
         </div>
         <div className="footer__bottom">
-          <p>© 2025 The BRUNCH · All rights reserved · Made with ☕ in Yerevan</p>
+          <p>© 2025 The BRUNCH Café & Kitchen · All rights reserved · Made with ☕ in Yerevan</p>
         </div>
       </footer>
     </div>
