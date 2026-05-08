@@ -72,19 +72,15 @@ const FEATURES = [
   { icon: "○", title: "Cozy Atmosphere", desc: "Natural light, warm textures, and a pace of life that encourages you to stay a little longer." },
 ];
 
-function useScrollReveal(deps = []) {
+function useScrollReveal() {
   useEffect(() => {
-    // Small delay so new DOM elements are rendered before we observe
-    const timer = setTimeout(() => {
-      const observer = new IntersectionObserver(
-        (entries) => entries.forEach(e => e.isIntersecting && e.target.classList.add("revealed")),
-        { threshold: 0.12 }
-      );
-      document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
-      return () => observer.disconnect();
-    }, 50);
-    return () => clearTimeout(timer);
-  }, deps); // ← now re-runs when deps change
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach(e => e.isIntersecting && e.target.classList.add("revealed")),
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
 }
 
 export default function App() {
@@ -245,9 +241,9 @@ export default function App() {
               </button>
             ))}
           </div>
-          <div className="menu-items">
+          <div className="menu-items" key={activeMenu}>
             {MENU_ITEMS[activeMenu].items.map((item, i) => (
-              <div className="menu-item reveal" key={item.name} style={{ animationDelay: `${i * 0.1}s` }}>
+              <div className="menu-item menu-item--animate" key={item.name} style={{ animationDelay: `${i * 0.07}s` }}>
                 <div className="menu-item__info">
                   <h4>{item.name}</h4>
                   <p>{item.desc}</p>
