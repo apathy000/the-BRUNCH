@@ -49,7 +49,7 @@ const T = {
     cardStat1: "Happy Guests", cardStat2: "Google Rating", cardStat3: "Menu Sections",
     cardCta: "Make a Reservation ✦",
     footerTagline: "Made for slow mornings\nand great conversations.",
-    footerCopy: "© 2025 The BRUNCH Café & Kitchen · All rights reserved · Made with ☕ in Yerevan",
+    footerCopy: "© 2026 The BRUNCH Café & Kitchen · All rights reserved · Made with ☕ in Yerevan",
     features: [
       { icon:"✦", title:"Legendary Breakfasts", dish:"English Breakfast · Brunch Bowl", desc:"Large portions, beautiful plating, and comforting flavors that make mornings worth waking up for." },
       { icon:"◈", title:"Thin & Crispy Pizza", dish:"Prosciutto & Arugula · Quattro Formaggi", desc:"Italian-inspired texture, fresh ingredients, and that perfect char — made with genuine care." },
@@ -104,7 +104,7 @@ const T = {
     cardStat1: "Довольных гостей", cardStat2: "Рейтинг Google", cardStat3: "Разделов меню",
     cardCta: "Забронировать стол ✦",
     footerTagline: "Для неспешных утр\nи хороших разговоров.",
-    footerCopy: "© 2025 The BRUNCH Кафе и Кухня · Все права защищены · Сделано с ☕ в Ереване",
+    footerCopy: "© 2026 The BRUNCH Кафе и Кухня · Все права защищены · Сделано с ☕ в Ереване",
     features: [
       { icon:"✦", title:"Легендарные завтраки", dish:"Английский завтрак · Brunch Bowl", desc:"Щедрые порции, красивая подача и уютные вкусы, которые делают утро особенным." },
       { icon:"◈", title:"Тонкая хрустящая пицца", dish:"Прошутто и руккола · Кватро Формаджи", desc:"Итальянская текстура, свежие ингредиенты и идеальная корочка — сделано с душой." },
@@ -159,7 +159,7 @@ const T = {
     cardStat1: "Երջանիկ հյուրեր", cardStat2: "Google գնահատական", cardStat3: "Մենյուի բաժիններ",
     cardCta: "Ամրագրել սեղան ✦",
     footerTagline: "Դանդաղ առավոտների\nև լավ զրույցների համար։",
-    footerCopy: "© 2025 The BRUNCH Սրճարան · Բոլոր իրավունքները պաշտպանված են · Ստեղծված ☕-ով Երևանում",
+    footerCopy: "© 2026 The BRUNCH Սրճարան · Բոլոր իրավունքները պաշտպանված են · Ստեղծված ☕-ով Երևանում",
     features: [
       { icon:"✦", title:"Լեգենդար նախաճաշ", dish:"Անգլիական նախաճաշ · Brunch Bowl", desc:"Առատ բաժիններ, գեղեցիկ մատուցում և հարազատ համ, որ առավոտը հատուկ է դարձնում։" },
       { icon:"◈", title:"Բարակ հրուշակ", dish:"Պրոշուտո & ռուկոլա · Quattro Formaggi", desc:"Իտալական տեքստուրա, թարմ բաղադրիչներ և կատարյալ կեղև — պատրաստված հոգով։" },
