@@ -273,9 +273,21 @@ export default function App() {
   };
 
   const LANGS = [
-    { code: "EN", flag: "🇬🇧", label: "English" },
-    { code: "RU", flag: "🇷🇺", label: "Русский" },
-    { code: "AM", flag: "🇦🇲", label: "Հայերեն" },
+    { 
+      code: "EN", 
+      label: "English", 
+      flag: <img src="https://flagcdn.com/w20/gb.png" alt="UK" width="20" /> 
+    },
+    { 
+      code: "RU", 
+      label: "Русский", 
+      flag: <img src="https://flagcdn.com/w20/ru.png" alt="RU" width="20" /> 
+    },
+    { 
+      code: "AM", 
+      label: "Հայերեն", 
+      flag: <img src="https://flagcdn.com/w20/am.png" alt="AM" width="20" /> 
+    },
   ];
 
   const getMenuCat = (item) => lang === "RU" ? item.categoryRU : lang === "AM" ? item.categoryAM : item.category;
