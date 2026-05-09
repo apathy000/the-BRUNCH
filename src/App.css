@@ -388,10 +388,13 @@ body {
   .visit__card-stats { gap: 20px; }
 }
 /* ══════════════════════════════════════════
-   NEW ADDITIONS — all 8 tasks
+   ALL FIXES — v2
 ══════════════════════════════════════════ */
 
-/* ── 1. LANGUAGE SWITCHER ── */
+/* ── REMOVE OLD nav__cta ── */
+.nav__cta { display: none; }
+
+/* ── FIX 1: LANGUAGE SWITCHER — colored badge pills ── */
 .lang-switcher {
   position: relative;
   z-index: 200;
@@ -399,18 +402,17 @@ body {
 .lang-switcher__trigger {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.25);
+  border: 1px solid rgba(255,255,255,0.3);
   color: white;
   font-family: var(--font-body);
   font-size: 13px;
   font-weight: 500;
-  padding: 7px 14px;
+  padding: 8px 14px;
   border-radius: var(--radius-xl);
   cursor: pointer;
   transition: var(--transition);
-  letter-spacing: 0.04em;
   backdrop-filter: blur(8px);
 }
 .nav--scrolled .lang-switcher__trigger {
@@ -418,20 +420,31 @@ body {
   border-color: var(--forest);
   color: var(--forest);
 }
-.lang-switcher__trigger:hover {
-  background: rgba(255,255,255,0.2);
-  transform: translateY(-1px);
-}
-.nav--scrolled .lang-switcher__trigger:hover {
-  background: var(--forest);
-  color: white;
-}
-.lang-switcher__flag { font-size: 16px; line-height: 1; }
-.lang-switcher__code { font-weight: 600; }
-.lang-switcher__arrow {
+.lang-switcher__trigger:hover { background: rgba(255,255,255,0.22); transform: translateY(-1px); }
+.nav--scrolled .lang-switcher__trigger:hover { background: var(--forest); color: white; }
+
+/* Colored language badge */
+.lang-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 4px;
   font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: white;
+  flex-shrink: 0;
+  font-family: var(--font-body);
+}
+
+.lang-switcher__arrow {
+  font-size: 9px;
   transition: transform 0.3s ease;
   display: inline-block;
+  opacity: 0.7;
 }
 .lang-switcher__arrow--open { transform: rotate(180deg); }
 
@@ -442,14 +455,13 @@ body {
   background: white;
   border: 1px solid var(--beige);
   border-radius: var(--radius-md);
-  box-shadow: 0 16px 48px rgba(45,92,74,0.18);
+  box-shadow: 0 20px 60px rgba(45,92,74,0.2);
   overflow: hidden;
-  min-width: 160px;
-  /* Animation */
+  min-width: 170px;
   opacity: 0;
   transform: translateY(-8px) scale(0.97);
   pointer-events: none;
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  transition: opacity 0.22s ease, transform 0.22s ease;
 }
 .lang-switcher__dropdown--open {
   opacity: 1;
@@ -468,162 +480,158 @@ body {
   font-size: 14px;
   font-weight: 400;
   color: var(--charcoal);
-  padding: 12px 16px;
-  transition: background 0.2s ease;
+  padding: 13px 16px;
+  transition: background 0.18s ease;
   text-align: left;
 }
 .lang-switcher__option:hover { background: var(--forest-light); color: var(--forest); }
 .lang-switcher__option--active { background: var(--forest-light); color: var(--forest); font-weight: 600; }
-.lang-switcher__check { margin-left: auto; color: var(--forest); font-size: 12px; }
+.lang-switcher__check { margin-left: auto; color: var(--forest); font-size: 13px; font-weight: 700; }
 
-/* ── 2. REMOVE OLD nav__cta — replaced by lang switcher ── */
-.nav__cta { display: none; }
-
-/* ── 3. FEATURE CARD — full width green line + dish subtitle ── */
-.feature-card::before {
-  transform-origin: left;
-  /* override to go full width */
-  left: 0; right: 0;
+/* ── FIX 2: FEATURE CARDS — force them visible, fix disappearing ── */
+.features__grid {
+  display: grid !important;
+  grid-template-columns: repeat(3,1fr) !important;
+  gap: 24px !important;
 }
-/* dish name subtitle */
+.feature-card {
+  background: var(--warm-white) !important;
+  border: 1px solid var(--beige) !important;
+  border-radius: var(--radius-lg) !important;
+  padding: 40px 32px !important;
+  opacity: 1 !important;           /* override any stale reveal state */
+  transform: none !important;
+  transition: transform 0.35s ease, box-shadow 0.35s ease !important;
+  position: relative;
+  overflow: hidden;
+}
+/* the top green line — starts scaled to 0, animates to full on hover */
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--forest), var(--forest-mid));
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.feature-card:hover { transform: translateY(-6px) !important; box-shadow: var(--shadow-lift) !important; }
+.feature-card:hover::before { transform: scaleX(1); }
+.feature-card__icon { display: block; font-size: 24px; color: var(--forest); margin-bottom: 20px; }
+.feature-card h3 { font-family: var(--font-display); font-size: 22px; font-weight: 500; color: var(--espresso); margin-bottom: 8px; }
 .feature-card__dish {
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--forest);
+  opacity: 0.7;
   margin-bottom: 12px;
-  margin-top: -8px;
-  opacity: 0.75;
 }
+.feature-card p { font-size: 15px; color: var(--text-muted); line-height: 1.7; }
 
-/* ── 4. MENU ITEMS — more padding + stronger shadow ── */
+/* ── FIX 3: MENU ITEM hover — smooth slide from left, not just nudge ── */
 .menu-item {
-  padding: 28px 36px !important;
-  box-shadow: 0 2px 12px rgba(45,92,74,0.06);
-  margin-bottom: 4px;
+  padding: 26px 36px !important;
+  box-shadow: 0 2px 8px rgba(45,92,74,0.05);
+  transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94),
+              box-shadow 0.35s ease,
+              border-color 0.35s ease !important;
+  transform: translateX(0) !important;
 }
 .menu-item:hover {
-  box-shadow: 0 8px 32px rgba(45,92,74,0.16) !important;
-  transform: translateX(6px) !important;
+  transform: translateX(8px) !important;
+  box-shadow: 0 8px 32px rgba(45,92,74,0.14) !important;
+  border-color: rgba(45,92,74,0.2) !important;
 }
 
-/* ── 5. GALLERY IMAGES — fix invisible images ── */
-.gallery__item {
-  background-color: var(--latte); /* fallback if image fails */
+/* ── FIX 4: WHY-US CARDS — force visible (were invisible due to reveal bug) ── */
+.why-us__grid {
+  display: grid !important;
+  grid-template-columns: repeat(3,1fr) !important;
+  gap: 2px !important;
+  background: rgba(255,255,255,0.06) !important;
+  border-radius: var(--radius-lg) !important;
+  overflow: hidden !important;
 }
-/* Ensure the background-image set inline renders correctly */
-.gallery__item[style*="backgroundImage"] {
-  background-size: cover !important;
-  background-position: center !important;
+.why-card {
+  background: rgba(255,255,255,0.03) !important;
+  padding: 40px 36px !important;
+  opacity: 1 !important;
+  transform: none !important;
+  transition: background 0.3s ease !important;
 }
-/* overlay always present so label is visible */
+.why-card:hover { background: rgba(255,255,255,0.08) !important; }
+.why-card__num { font-family: var(--font-display); font-size: 48px; font-weight: 400; color: rgba(200,180,133,0.3); line-height: 1; margin-bottom: 20px; }
+.why-card h4 { font-family: var(--font-display); font-size: 20px; font-weight: 500; color: var(--warm-white); margin-bottom: 12px; }
+.why-card p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.7; }
+
+/* ── FIX 5: GALLERY — reduce height, fix grid layout ── */
+.gallery { padding: 80px 0; }
+.gallery__grid {
+  display: grid !important;
+  grid-template-columns: repeat(4,1fr) !important;
+  grid-template-rows: repeat(2, 220px) !important; /* was 3×180px — reduced to 2×220px */
+  gap: 14px !important;
+  margin-bottom: 24px;
+}
+.gallery__item--tall { grid-row: span 2 !important; }
+.gallery__item--wide { grid-column: span 2 !important; }
+/* Always show labels with gradient overlay */
 .gallery__item-inner {
-  background: linear-gradient(to top, rgba(30,61,50,0.6) 0%, transparent 60%) !important;
+  background: linear-gradient(to top, rgba(20,50,38,0.65) 0%, transparent 55%) !important;
 }
 .gallery__item-inner span {
-  color: rgba(255,255,255,0.9) !important; /* always visible */
+  color: rgba(255,255,255,0.92) !important;
   font-size: 13px;
   font-weight: 500;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.3);
 }
 
-/* ── 6. STICKY CTA — already an <a href="tel:..."> in JSX ── */
-.sticky-cta { cursor: pointer; }
-
-/* ── 7. TWO BRANCHES ── */
-.visit__branches {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 8px;
-}
-.visit__branch {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  color: var(--text-muted);
-  font-size: 15px;
-  transition: var(--transition);
-  padding: 8px 12px;
-  border-radius: var(--radius-sm);
-  border: 1px solid transparent;
-}
-.visit__branch:hover {
-  background: var(--forest-light);
-  color: var(--forest);
-  border-color: var(--forest-light);
-  transform: translateX(4px);
-}
-.visit__branch-num {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: var(--forest);
-  color: white;
-  font-size: 11px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-/* ── 8. FACEBOOK + INSTAGRAM BUTTONS ── */
+/* ── SOCIAL BUTTONS ── */
 .btn--facebook {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: #1877F2;
-  color: white;
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 500;
-  padding: 14px 28px;
-  border-radius: var(--radius-xl);
-  text-decoration: none;
-  transition: var(--transition);
-  cursor: pointer;
-  border: none;
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #1877F2; color: white;
+  font-family: var(--font-body); font-size: 14px; font-weight: 500;
+  padding: 14px 28px; border-radius: var(--radius-xl);
+  text-decoration: none; transition: var(--transition); border: none; cursor: pointer;
 }
-.btn--facebook:hover {
-  background: #0d65d9;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(24,119,242,0.35);
-}
+.btn--facebook:hover { background: #0d65d9; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(24,119,242,0.35); }
 .btn--instagram {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+  display: inline-flex; align-items: center; gap: 8px;
   background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-  color: white;
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 500;
-  padding: 14px 28px;
-  border-radius: var(--radius-xl);
-  text-decoration: none;
-  transition: var(--transition);
-  cursor: pointer;
-  border: none;
+  color: white; font-family: var(--font-body); font-size: 14px; font-weight: 500;
+  padding: 14px 28px; border-radius: var(--radius-xl);
+  text-decoration: none; transition: var(--transition); border: none; cursor: pointer;
 }
-.btn--instagram:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(220,39,67,0.35);
-  filter: brightness(1.1);
+.btn--instagram:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(220,39,67,0.35); filter: brightness(1.1); }
+
+/* ── BRANCHES ── */
+.visit__branches { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+.visit__branch {
+  display: flex; align-items: center; gap: 10px; text-decoration: none;
+  color: var(--text-muted); font-size: 15px; transition: var(--transition);
+  padding: 8px 12px; border-radius: var(--radius-sm); border: 1px solid transparent;
+}
+.visit__branch:hover { background: var(--forest-light); color: var(--forest); transform: translateX(4px); }
+.visit__branch-num {
+  width: 24px; height: 24px; border-radius: 50%; background: var(--forest);
+  color: white; font-size: 11px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
 
-/* ── VISIT CARD CTA — now an <a> link ── */
-.visit__card-cta {
-  display: block;
-  text-align: center;
-  text-decoration: none;
-}
+/* ── VISIT CARD CTA ── */
+.visit__card-cta { display: block; text-align: center; text-decoration: none; }
 
-/* ── MOBILE responsive for lang switcher ── */
+/* ── MOBILE ── */
 @media (max-width: 768px) {
   .lang-switcher__trigger { padding: 6px 10px; font-size: 12px; }
   .lang-switcher__dropdown { right: -8px; }
-  .visit__branches { gap: 8px; }
+  .gallery__grid { grid-template-columns: repeat(2,1fr) !important; grid-template-rows: auto !important; }
+  .gallery__item--tall { grid-row: span 1 !important; }
+  .gallery__item--wide { grid-column: span 1 !important; }
+  .features__grid { grid-template-columns: 1fr !important; }
+  .why-us__grid { grid-template-columns: 1fr !important; }
 }

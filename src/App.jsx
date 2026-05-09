@@ -49,7 +49,7 @@ const T = {
     cardStat1: "Happy Guests", cardStat2: "Google Rating", cardStat3: "Menu Sections",
     cardCta: "Make a Reservation ✦",
     footerTagline: "Made for slow mornings\nand great conversations.",
-    footerCopy: "© 2026 The BRUNCH Café & Kitchen · All rights reserved · Made with ☕ in Yerevan",
+    footerCopy: "© 2025 The BRUNCH Café & Kitchen · All rights reserved · Made with ☕ in Yerevan",
     features: [
       { icon:"✦", title:"Legendary Breakfasts", dish:"English Breakfast · Brunch Bowl", desc:"Large portions, beautiful plating, and comforting flavors that make mornings worth waking up for." },
       { icon:"◈", title:"Thin & Crispy Pizza", dish:"Prosciutto & Arugula · Quattro Formaggi", desc:"Italian-inspired texture, fresh ingredients, and that perfect char — made with genuine care." },
@@ -104,7 +104,7 @@ const T = {
     cardStat1: "Довольных гостей", cardStat2: "Рейтинг Google", cardStat3: "Разделов меню",
     cardCta: "Забронировать стол ✦",
     footerTagline: "Для неспешных утр\nи хороших разговоров.",
-    footerCopy: "© 2026 The BRUNCH Кафе и Кухня · Все права защищены · Сделано с ☕ в Ереване",
+    footerCopy: "© 2025 The BRUNCH Кафе и Кухня · Все права защищены · Сделано с ☕ в Ереване",
     features: [
       { icon:"✦", title:"Легендарные завтраки", dish:"Английский завтрак · Brunch Bowl", desc:"Щедрые порции, красивая подача и уютные вкусы, которые делают утро особенным." },
       { icon:"◈", title:"Тонкая хрустящая пицца", dish:"Прошутто и руккола · Кватро Формаджи", desc:"Итальянская текстура, свежие ингредиенты и идеальная корочка — сделано с душой." },
@@ -121,7 +121,7 @@ const T = {
     heroHeadline1: "Ավելին, քան բրանչ —",
     heroHeadline2: "Դա ձեր սիրելի",
     heroHeadline3: "օրվա պահն է։",
-    heroSub: "Հեղինակային նախաճաշ, բարակ հրուշակ, սուրճ — և այն ջերմությունը, որը ստիպում է հյուրերին վերադառնալ կրկին ու կրկին։",
+    heroSub: "Հեղինակային նախաճաշ, բարակ հրուշակ, specialty սուրճ — և այն ջերմությունը, որը ստիպում է հյուրերին վերադառնալ կրկին ու կրկին։",
     heroCta1: "Ամրագրել սեղան", heroCta2: "Բացել մենյու",
     pill1: "🏅 Ընտանեկան մթնոլորտ", pill2: "☕ Specialty սուրճ", pill3: "✦ Կրկնաայցելու հյուրեր",
     statsLabels: ["Google կարծիք","Միջին գնահատական","Մշտական հյուրեր","Ձեռագործ մենյու"],
@@ -159,7 +159,7 @@ const T = {
     cardStat1: "Երջանիկ հյուրեր", cardStat2: "Google գնահատական", cardStat3: "Մենյուի բաժիններ",
     cardCta: "Ամրագրել սեղան ✦",
     footerTagline: "Դանդաղ առավոտների\nև լավ զրույցների համար։",
-    footerCopy: "© 2026 The BRUNCH Սրճարան · Բոլոր իրավունքները պաշտպանված են · Ստեղծված ☕-ով Երևանում",
+    footerCopy: "© 2025 The BRUNCH Սրճարան · Բոլոր իրավունքները պաշտպանված են · Ստեղծված ☕-ով Երևանում",
     features: [
       { icon:"✦", title:"Լեգենդար նախաճաշ", dish:"Անգլիական նախաճաշ · Brunch Bowl", desc:"Առատ բաժիններ, գեղեցիկ մատուցում և հարազատ համ, որ առավոտը հատուկ է դարձնում։" },
       { icon:"◈", title:"Բարակ հրուշակ", dish:"Պրոշուտո & ռուկոլա · Quattro Formaggi", desc:"Իտալական տեքստուրա, թարմ բաղադրիչներ և կատարյալ կեղև — պատրաստված հոգով։" },
@@ -273,21 +273,9 @@ export default function App() {
   };
 
   const LANGS = [
-    { 
-      code: "EN", 
-      label: "English", 
-      flag: <img src="https://flagcdn.com/w20/gb.png" alt="UK" width="20" /> 
-    },
-    { 
-      code: "RU", 
-      label: "Русский", 
-      flag: <img src="https://flagcdn.com/w20/ru.png" alt="RU" width="20" /> 
-    },
-    { 
-      code: "AM", 
-      label: "Հայերեն", 
-      flag: <img src="https://flagcdn.com/w20/am.png" alt="AM" width="20" /> 
-    },
+    { code: "EN", badge: "EN", color: "#012169", label: "English" },
+    { code: "RU", badge: "RU", color: "#CC0000", label: "Русский" },
+    { code: "AM", badge: "ՀԱՅ", color: "#D90012", label: "Հայերեն" },
   ];
 
   const getMenuCat = (item) => lang === "RU" ? item.categoryRU : lang === "AM" ? item.categoryAM : item.category;
@@ -312,8 +300,9 @@ export default function App() {
         {/* Language Switcher */}
         <div className="lang-switcher">
           <button className="lang-switcher__trigger" onClick={() => setLangOpen(o => !o)}>
-            <span className="lang-switcher__flag">{LANGS.find(l => l.code === lang)?.flag}</span>
-            <span className="lang-switcher__code">{lang}</span>
+            <span className="lang-badge" style={{ background: LANGS.find(l => l.code === lang)?.color }}>
+              {LANGS.find(l => l.code === lang)?.badge}
+            </span>
             <span className={`lang-switcher__arrow ${langOpen ? "lang-switcher__arrow--open" : ""}`}>▾</span>
           </button>
           <div className={`lang-switcher__dropdown ${langOpen ? "lang-switcher__dropdown--open" : ""}`}>
@@ -321,7 +310,7 @@ export default function App() {
               <button key={l.code}
                 className={`lang-switcher__option ${lang === l.code ? "lang-switcher__option--active" : ""}`}
                 onClick={() => { setLang(l.code); setLangOpen(false); }}>
-                <span>{l.flag}</span>
+                <span className="lang-badge" style={{ background: l.color }}>{l.badge}</span>
                 <span>{l.label}</span>
                 {lang === l.code && <span className="lang-switcher__check">✓</span>}
               </button>
@@ -397,7 +386,7 @@ export default function App() {
           </div>
           <div className="features__grid">
             {t.features.map((f, i) => (
-              <div className="feature-card reveal" key={f.title}>
+              <div className="feature-card" key={f.title}>
                 <span className="feature-card__icon">{f.icon}</span>
                 <h3>{f.title}</h3>
                 <p className="feature-card__dish">{f.dish}</p>
@@ -531,7 +520,7 @@ export default function App() {
           </div>
           <div className="why-us__grid">
             {t.whyItems.map(([title, desc], i) => (
-              <div className="why-card reveal" key={title} style={{ animationDelay: `${i * 0.06}s` }}>
+              <div className="why-card" key={title} style={{ animationDelay: `${i * 0.06}s` }}>
                 <div className="why-card__num">0{i + 1}</div>
                 <h4>{title}</h4>
                 <p>{desc}</p>
@@ -587,12 +576,12 @@ export default function App() {
 
               <div className="visit__actions">
                 {/* Facebook */}
-                <a className="btn btn--facebook" href="https://www.facebook.com/thebrunchyvn/?locale=ru_RU" target="_blank" rel="noreferrer">
+                <a className="btn btn--facebook" href="https://www.facebook.com/thebrunchyerevan" target="_blank" rel="noreferrer">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
                   {t.fbBtn}
                 </a>
                 {/* Instagram */}
-                <a className="btn btn--instagram" href="https://www.instagram.com/the_brunch_yvn/" target="_blank" rel="noreferrer">
+                <a className="btn btn--instagram" href="https://www.instagram.com/thebrunch.am" target="_blank" rel="noreferrer">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                   {t.igBtn}
                 </a>
