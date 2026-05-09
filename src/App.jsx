@@ -1,85 +1,247 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 
-const NAV_LINKS = ["Menu", "About", "Gallery", "Reviews", "Contact"];
-
-const REVIEWS = [
-  { name: "Ani M.", rating: 5, text: "The coziest place with incredibly attentive staff. We stayed for hours and nobody rushed us — that's rare.", avatar: "A" },
-  { name: "David K.", rating: 5, text: "Best lemon tart I've ever had. The presentation alone is worth coming for — it looked almost too beautiful to eat.", avatar: "D" },
-  { name: "Nare S.", rating: 5, text: "Crispy thin pizzas, perfectly brewed coffee, and the warmest atmosphere. This is our family's go-to place now.", avatar: "N" },
-  { name: "Armen G.", rating: 5, text: "Fast service, generous portions, and the breakfast plating is like something from a magazine. Absolutely stellar.", avatar: "A" },
-  { name: "Mariam T.", rating: 5, text: "We've been back four times this month. The atmosphere just pulls you in. The staff remembers your name.", avatar: "M" },
-  { name: "Sona V.", rating: 4, text: "Incredible coffee and desserts. The cappuccino foam art was perfect. The interior is stunning — very photogenic.", avatar: "S" },
-];
+// ── TRANSLATIONS ──────────────────────────────────────────────────────────────
+const T = {
+  EN: {
+    nav: ["Menu", "About", "Gallery", "Reviews", "Contact"],
+    bookTable: "Book a Table",
+    reserveSpot: "Reserve a Spot",
+    heroBadge: "4.5 · 200+ guests · Yerevan's favorite brunch",
+    heroHeadline1: "More Than Brunch —",
+    heroHeadline2: "It's Your Favorite",
+    heroHeadline3: "Part of the Day.",
+    heroSub: "Handcrafted breakfasts, thin crispy pizzas, specialty coffee, and the kind of warmth that keeps guests coming back again and again.",
+    heroCta1: "Book a Table", heroCta2: "Explore Menu",
+    pill1: "🏅 Family Friendly", pill2: "☕ Specialty Coffee", pill3: "✦ Returning Guests Daily",
+    statsLabels: ["Google Reviews","Average Rating","Returning Guests","Handcrafted Menu"],
+    expTag: "The Experience", expTitle: "Everything We Do, We Do With Care",
+    expSub: "From the first coffee pour to the last dessert bite — every detail is intentional.",
+    galleryTag: "Gallery", galleryTitle: "Every Dish Tells a Story",
+    galleryNote: "📸 Real photos from The BRUNCH kitchen",
+    menuTag: "Our Menu", menuTitle: "Made Fresh, Every Morning",
+    menuSub: "A menu built around quality ingredients and recipes that genuinely excite us.",
+    menuCta: "Reserve a Table",
+    aboutTag: "Our Story", aboutTitle: "Built Around Comfort, Flavor & Connection",
+    aboutP1: "The BRUNCH was born from a simple belief: mornings should feel special. Not rushed. Not ordinary. Special.",
+    aboutP2: "We built a place where breakfasts are generous, coffee is brewed with care, and the staff actually knows your name.",
+    aboutP3: "Every dish on our menu was chosen because it genuinely excites us — from the perfectly crisped pizza bases to the lemon tart that people talk about for weeks.",
+    aboutP4: "Located in the heart of Yerevan, The BRUNCH is for anyone who believes the best part of the day deserves the best table in the room.",
+    aboutCta: "Come Visit Us", aboutQuote: "\"The place everyone comes back to.\"",
+    reviewsTag: "Guest Reviews", reviewsTitle: "What Our Guests Are Saying",
+    reviewsSub: "Written by real guests. We share them exactly as they felt.",
+    whyTag: "Why The BRUNCH", whyTitle: "More Than a Café. An Experience.",
+    whyItems: [
+      ["Fast & Attentive Service","No long waits. Friendly faces. Staff who genuinely care."],
+      ["Consistent Quality","Every visit feels as good as the first — that's the standard."],
+      ["Generous Portions","We don't believe in tiny plates. Leave full and happy."],
+      ["Premium Coffee Program","Sourced, roasted, and brewed to barista standards."],
+      ["Family Friendly","A space where everyone — kids included — feels welcome."],
+      ["Memorable Desserts","The kind that you think about on the drive home."],
+    ],
+    contactTag: "Come Find Us", contactTitle: "A Table Is Waiting", contactTitleEm: "Just for You.",
+    contactDesc: "Whether it's a slow solo morning, a family gathering, or a date — The BRUNCH has a seat with your name on it.",
+    loc: "Location", hours: "Hours", hoursVal: "Mon – Sun: 10:00 – 22:00",
+    hoursNote: "Breakfast served until 16:00", res: "Reservations",
+    branch1: "8 Vahram Papazyan St, Yerevan", branch2: "Dalma Garden Mall, Yerevan",
+    fbBtn: "Facebook", igBtn: "Instagram",
+    cardTag: "Café & Kitchen", cardQuote: "\"Made for slow mornings and great conversations.\"",
+    cardStat1: "Happy Guests", cardStat2: "Google Rating", cardStat3: "Menu Sections",
+    cardCta: "Make a Reservation ✦",
+    footerTagline: "Made for slow mornings\nand great conversations.",
+    footerCopy: "© 2025 The BRUNCH Café & Kitchen · All rights reserved · Made with ☕ in Yerevan",
+    features: [
+      { icon:"✦", title:"Legendary Breakfasts", dish:"English Breakfast · Brunch Bowl", desc:"Large portions, beautiful plating, and comforting flavors that make mornings worth waking up for." },
+      { icon:"◈", title:"Thin & Crispy Pizza", dish:"Prosciutto & Arugula · Quattro Formaggi", desc:"Italian-inspired texture, fresh ingredients, and that perfect char — made with genuine care." },
+      { icon:"◉", title:"Specialty Coffee", dish:"Pour Over · Signature Latte", desc:"Single-origin beans, precision brewing, and latte art that makes every cup a small ceremony." },
+      { icon:"❋", title:"Artisan Desserts", dish:"Lemon Tart · Tiramisu", desc:"The lemon tart alone has brought people back. Our pastry selection changes seasonally." },
+      { icon:"◇", title:"Warm Hospitality", dish:"Attentive · Personal · Caring", desc:"Friendly staff who remember you. Service that feels personal, never rushed, never corporate." },
+      { icon:"○", title:"Cozy Atmosphere", dish:"Relaxed · Bright · Welcoming", desc:"Natural light, warm textures, and a pace of life that encourages you to stay a little longer." },
+    ],
+  },
+  RU: {
+    nav: ["Меню", "О нас", "Галерея", "Отзывы", "Контакты"],
+    bookTable: "Забронировать", reserveSpot: "Забронировать",
+    heroBadge: "4.5 · 200+ гостей · Любимое место для бранча в Ереване",
+    heroHeadline1: "Больше, чем бранч —",
+    heroHeadline2: "Это ваша любимая",
+    heroHeadline3: "часть дня.",
+    heroSub: "Авторские завтраки, тонкая хрустящая пицца, кофе specialty — и та теплота, которая заставляет гостей возвращаться снова и снова.",
+    heroCta1: "Забронировать стол", heroCta2: "Открыть меню",
+    pill1: "🏅 Семейное место", pill2: "☕ Specialty кофе", pill3: "✦ Постоянные гости",
+    statsLabels: ["Отзывов в Google","Средняя оценка","Постоянные гости","Ручное приготовление"],
+    expTag: "Наш подход", expTitle: "Всё, что мы делаем — делаем с душой",
+    expSub: "От первой чашки кофе до последнего кусочка десерта — каждая деталь продумана.",
+    galleryTag: "Галерея", galleryTitle: "Каждое блюдо рассказывает историю",
+    galleryNote: "📸 Реальные фото из кухни The BRUNCH",
+    menuTag: "Наше меню", menuTitle: "Готовим свежим каждое утро",
+    menuSub: "Меню, построенное вокруг качественных продуктов и рецептов, которые нас действительно вдохновляют.",
+    menuCta: "Забронировать стол",
+    aboutTag: "Наша история", aboutTitle: "Созданы для уюта, вкуса и общения",
+    aboutP1: "The BRUNCH родился из простого убеждения: утро должно быть особенным. Не торопливым. Не обычным. Особенным.",
+    aboutP2: "Мы создали место, где завтраки щедрые, кофе заваривают с заботой, а персонал знает вас по имени.",
+    aboutP3: "Каждое блюдо в меню выбрано потому, что оно нас по-настоящему восхищает — от хрустящей пиццы до лимонного тарта, о котором говорят неделями.",
+    aboutP4: "В самом сердце Еревана, The BRUNCH — для тех, кто верит, что лучшая часть дня заслуживает лучшего стола.",
+    aboutCta: "Приходите к нам", aboutQuote: "«Место, куда все возвращаются.»",
+    reviewsTag: "Отзывы гостей", reviewsTitle: "Что говорят наши гости",
+    reviewsSub: "Написано реальными гостями. Делимся ими именно такими, какими они были.",
+    whyTag: "Почему The BRUNCH", whyTitle: "Больше, чем кафе. Это опыт.",
+    whyItems: [
+      ["Быстрое и внимательное обслуживание","Без долгого ожидания. Дружелюбные лица. Персонал, которому не всё равно."],
+      ["Стабильное качество","Каждый визит ощущается так же хорошо, как первый — это наш стандарт."],
+      ["Щедрые порции","Мы не верим в крошечные тарелки. Уходите сытыми и счастливыми."],
+      ["Премиум-кофе","Отборные зёрна, точное заваривание, стандарты бариста."],
+      ["Семейная атмосфера","Место, где комфортно всем — включая детей."],
+      ["Незабываемые десерты","Те, о которых думаешь всю дорогу домой."],
+    ],
+    contactTag: "Найдите нас", contactTitle: "Стол уже ждёт вас", contactTitleEm: "Специально для вас.",
+    contactDesc: "Тихое утро в одиночестве, семейный сбор или свидание — в The BRUNCH найдётся место с вашим именем.",
+    loc: "Адрес", hours: "Часы работы", hoursVal: "Пн – Вс: 10:00 – 22:00",
+    hoursNote: "Завтраки подаются до 16:00", res: "Бронирование",
+    branch1: "ул. Ваграма Папазяна 8, Ереван", branch2: "Торговый центр Dalma Garden, Ереван",
+    fbBtn: "Facebook", igBtn: "Instagram",
+    cardTag: "Кафе и Кухня", cardQuote: "«Для неспешных утр и хороших разговоров.»",
+    cardStat1: "Довольных гостей", cardStat2: "Рейтинг Google", cardStat3: "Разделов меню",
+    cardCta: "Забронировать стол ✦",
+    footerTagline: "Для неспешных утр\nи хороших разговоров.",
+    footerCopy: "© 2025 The BRUNCH Кафе и Кухня · Все права защищены · Сделано с ☕ в Ереване",
+    features: [
+      { icon:"✦", title:"Легендарные завтраки", dish:"Английский завтрак · Brunch Bowl", desc:"Щедрые порции, красивая подача и уютные вкусы, которые делают утро особенным." },
+      { icon:"◈", title:"Тонкая хрустящая пицца", dish:"Прошутто и руккола · Кватро Формаджи", desc:"Итальянская текстура, свежие ингредиенты и идеальная корочка — сделано с душой." },
+      { icon:"◉", title:"Specialty кофе", dish:"Пор-овер · Фирменный латте", desc:"Зёрна single origin, точное заваривание и латте-арт, превращающий каждую чашку в ритуал." },
+      { icon:"❋", title:"Авторские десерты", dish:"Лимонный тарт · Тирамису", desc:"Лимонный тарт уже привёл людей обратно. Наш выбор выпечки меняется по сезонам." },
+      { icon:"◇", title:"Тёплое гостеприимство", dish:"Внимательный · Личный · Заботливый", desc:"Персонал, который вас помнит. Сервис личный, без спешки и формальности." },
+      { icon:"○", title:"Уютная атмосфера", dish:"Расслабленная · Светлая · Радушная", desc:"Естественный свет, тёплые текстуры и ритм жизни, который не торопит." },
+    ],
+  },
+  AM: {
+    nav: ["Մենյու", "Մեր մասին", "Պատկերասրահ", "Կարծիքներ", "Կապ"],
+    bookTable: "Ամրագրել", reserveSpot: "Ամրագրել",
+    heroBadge: "4.5 · 200+ հյուր · Երևանի սիրված բրանչ-ը",
+    heroHeadline1: "Ավելին, քան բրանչ —",
+    heroHeadline2: "Դա ձեր սիրելի",
+    heroHeadline3: "օրվա պահն է։",
+    heroSub: "Հեղինակային նախաճաշ, բարակ հրուշակ, specialty սուրճ — և այն ջերմությունը, որը ստիպում է հյուրերին վերադառնալ կրկին ու կրկին։",
+    heroCta1: "Ամրագրել սեղան", heroCta2: "Բացել մենյու",
+    pill1: "🏅 Ընտանեկան մթնոլորտ", pill2: "☕ Specialty սուրճ", pill3: "✦ Կրկնաայցելու հյուրեր",
+    statsLabels: ["Google կարծիք","Միջին գնահատական","Մշտական հյուրեր","Ձեռագործ մենյու"],
+    expTag: "Մեր մոտեցումը", expTitle: "Ամեն ինչ անում ենք հոգով",
+    expSub: "Սուրճի առաջին կաթիլից մինչև դեսերտի վերջին կտոր — յուրաքանչյուր մանրամասն մտածված է։",
+    galleryTag: "Պատկերասրահ", galleryTitle: "Յուրաքանչյուր ուտեստ պատմություն է",
+    galleryNote: "📸 Իրական լուսանկարներ The BRUNCH-ի խոհանոցից",
+    menuTag: "Մեր մենյուն", menuTitle: "Թարմ պատրաստված ամեն առավոտ",
+    menuSub: "Մենյու, որը կառուցված է բարձրակարգ բաղադրիչների և ոգեշնչող բաղադրատոմսերի շուրջ։",
+    menuCta: "Ամրագրել սեղան",
+    aboutTag: "Մեր պատմությունը", aboutTitle: "Ստեղծված հարմարավետության, համի և հաղորդակցության համար",
+    aboutP1: "The BRUNCH-ը ծնվել է պարզ համոզմունքից. առավոտը պետք է հատուկ լինի։ Ոչ շտապ։ Ոչ սովորական։ Հատուկ։",
+    aboutP2: "Մենք ստեղծեցինք վայր, որտեղ նախաճաշերը առատ են, սուրճը պատրաստվում է հոգածությամբ, և անձնակազմն իրոք գիտի ձեր անունը։",
+    aboutP3: "Մենյուի յուրաքանչյուր ուտեստ ընտրված է, որովհետև այն իսկապես ոգեշնչում է մեզ — հրուշակից մինչև կիտրոնի տարտ։",
+    aboutP4: "Երևանի սրտում, The BRUNCH-ը նրանց համար է, ովքեր հավատում են, որ օրվա լավագույն մասն արժանի է լավագույն սեղանին։",
+    aboutCta: "Արի՛ մեզ մոտ", aboutQuote: "«Վայրը, ուր բոլորը վերադառնում են։»",
+    reviewsTag: "Հյուրերի կարծիքներ", reviewsTitle: "Ի՞նչ են ասում մեր հյուրերը",
+    reviewsSub: "Գրված են իրական հյուրերի կողմից։ Կիսում ենք ուղիղ այնպես, ինչպես զգացել են։",
+    whyTag: "Ինչու՞ The BRUNCH", whyTitle: "Ավելին, քան սրճարան։ Փորձառություն է։",
+    whyItems: [
+      ["Արագ և ուշադիր սպասարկում","Երկար սպասում չկա։ Ընկերական դեմքեր։ Անձնակազմ, որն իսկապես հոգ է տանում։"],
+      ["Կայուն որակ","Ամեն այց նույնքան լավ է, ինչ առաջինը — սա մեր ստանդարտն է։"],
+      ["Առատ բաժիններ","Փոքրիկ ափսեների մեջ չենք հավատում։ Հեռացե՛ք կուշտ ու երջանիկ։"],
+      ["Պրեմիում սուրճ","Ընտրված հատիկներ, ճշգրիտ եփում, բարիստայի ստանդարտներ։"],
+      ["Ընտանեկան մթնոլորտ","Վայր, որտեղ բոլորն ինքն իրեն հարմարավետ են զգում — երեխաները ներառյալ։"],
+      ["Անմոռանալի դեսերտներ","Այն, ինչի մասին մտածում ես ճանապարհին տուն։"],
+    ],
+    contactTag: "Գտի՛ր մեզ", contactTitle: "Սեղանն արդեն սպասում է", contactTitleEm: "Հատուկ ձեզ համար։",
+    contactDesc: "Հանգիստ առավոտ, ընտանեկան հավաք կամ ժամադրություն — The BRUNCH-ում կա տեղ ձեր անունով։",
+    loc: "Հասցե", hours: "Աշխատանքային ժամեր", hoursVal: "Երկ – Կիր: 10:00 – 22:00",
+    hoursNote: "Նախաճաշ մատուցվում է մինչև 16:00", res: "Ամրագրում",
+    branch1: "Վահրամ Փափազյան 8, Երևան", branch2: "Dalma Garden Mall, Երևան",
+    fbBtn: "Facebook", igBtn: "Instagram",
+    cardTag: "Սրճարան & Խոհանոց", cardQuote: "«Դանդաղ առավոտների և լավ զրույցների համար։»",
+    cardStat1: "Երջանիկ հյուրեր", cardStat2: "Google գնահատական", cardStat3: "Մենյուի բաժիններ",
+    cardCta: "Ամրագրել սեղան ✦",
+    footerTagline: "Դանդաղ առավոտների\nև լավ զրույցների համար։",
+    footerCopy: "© 2025 The BRUNCH Սրճարան · Բոլոր իրավունքները պաշտպանված են · Ստեղծված ☕-ով Երևանում",
+    features: [
+      { icon:"✦", title:"Լեգենդար նախաճաշ", dish:"Անգլիական նախաճաշ · Brunch Bowl", desc:"Առատ բաժիններ, գեղեցիկ մատուցում և հարազատ համ, որ առավոտը հատուկ է դարձնում։" },
+      { icon:"◈", title:"Բարակ հրուշակ", dish:"Պրոշուտո & ռուկոլա · Quattro Formaggi", desc:"Իտալական տեքստուրա, թարմ բաղադրիչներ և կատարյալ կեղև — պատրաստված հոգով։" },
+      { icon:"◉", title:"Specialty սուրճ", dish:"Pour Over · Ֆիրմային Latte", desc:"Single origin հատիկներ, ճշգրիտ եփում և latte art, որ յուրաքանչյուր բաժակ ծեսի է վերածում։" },
+      { icon:"❋", title:"Հեղինակային դեսերտներ", dish:"Կիտրոնի տարտ · Տիրամիսու", desc:"Կիտրոնի տարտն արդեն հյուրերին հետ է բերել։ Մեր հրուշակեղենը փոխվում է ըստ սեզոնի։" },
+      { icon:"◇", title:"Ջերմ հյուրընկալություն", dish:"Ուշադիր · Անձնական · Հոգածու", desc:"Անձնակազմ, որն ու հիշում է ձեզ։ Անձնական, ոչ շտապ սպասարկում։" },
+      { icon:"○", title:"Հարմարավետ մթնոլորտ", dish:"Հանգիստ · Լուսավոր · Ընդունող", desc:"Բնական լույս, ջերմ հյուրասրահ և կյանքի տեմպ, որ չի շտապեցնում։" },
+    ],
+  },
+};
 
 const MENU_ITEMS = [
-  { category: "Breakfast", emoji: "🍳", items: [
-    { name: "English Breakfast", desc: "Toast, mixed salad, village potatoes, tomato, sausage, bacon, feta cheese and 2 eggs of your choice", price: "3,700" },
-    { name: "The Brunch Bowl", desc: "Boiled egg, sautéed spinach, avocado, ricotta, cherry tomatoes and quinoa", price: "3,900" },
-    { name: "Breakfast with Smoked Salmon", desc: "Smoked salmon, guacamole, omelette, salad and crusty bread", price: "4,400" },
-    { name: "Oatmeal Brûlée", desc: "Oatmeal, milk, berries, stracciatella — the perfect slow morning", price: "2,300" },
-    { name: "Porridge with Berries & Meringue", desc: "Warm porridge with seasonal berries and house meringue", price: "2,400" },
-    { name: "Cottage Cheese Balls", desc: "Classic syrniki with berry jam and sour cream", price: "3,100" },
+  { category: "Breakfast", categoryRU: "Завтрак", categoryAM: "Նախաճաշ", emoji: "🍳", items: [
+    { name: "English Breakfast", nameRU: "Английский завтрак", nameAM: "Անգլիական նախաճաշ", desc: "Toast, mixed salad, village potatoes, tomato, sausage, bacon, feta cheese and 2 eggs of your choice", descRU: "Тост, микс-салат, деревенский картофель, помидор, сосиски, бекон, фета и 2 яйца на выбор", descAM: "Տոստ, աղցան, գյուղական կարտոֆիլ, լոլիկ, երշիկ, բեկոն, ֆետա և 2 ձու ըստ ձեր ընտրության", price: "3,700" },
+    { name: "The Brunch Bowl", nameRU: "Бранч Боул", nameAM: "Brunch Bowl", desc: "Boiled egg, sautéed spinach, avocado, ricotta, cherry tomatoes and quinoa", descRU: "Варёное яйцо, шпинат соте, авокадо, рикотта, помидоры черри и киноа", descAM: "Խաշած ձու, շпинат, ավոկադо, ռիկոտտա, cherry լոլիկ և կինոա", price: "3,900" },
+    { name: "Breakfast with Smoked Salmon", nameRU: "Завтрак с копчёным лососем", nameAM: "Ծխած սաղմոնով նախաճաշ", desc: "Smoked salmon, guacamole, omelette, salad and crusty bread", descRU: "Копчёный лосось, гуакамоле, омлет, салат и хрустящий хлеб", descAM: "Ծխած սաղmon, գուակամոle, օmlет, աղцан и хрustящий հաց", price: "4,400" },
+    { name: "Oatmeal Brûlée", nameRU: "Овсянка Брюле", nameAM: "Վարսակ Brûlée", desc: "Oatmeal, milk, berries, stracciatella — the perfect slow morning", descRU: "Овсянка, молоко, ягоды, страчателла — идеальное неспешное утро", descAM: "Վарսак, կաթ, հատապտուղ, ստrачatelла — կատарялал դanдagh առavot", price: "2,300" },
+    { name: "Porridge with Berries & Meringue", nameRU: "Каша с ягодами и безе", nameAM: "Շиlja հатапtughnерov", desc: "Warm porridge with seasonal berries and house meringue", descRU: "Тёплая каша с сезонными ягодами и безе", descAM: "Ջerм kasha sezonajin hataptughneriov yev beze", price: "2,400" },
+    { name: "Cottage Cheese Balls", nameRU: "Сырники", nameAM: "Կաrotagayin Gyunduknер", desc: "Classic syrniki with berry jam and sour cream", descRU: "Классические сырники с ягодным вареньем и сметаной", descAM: "Dasy syrniki hataptughnayin jam yev tdvasar", price: "3,100" },
   ]},
-  { category: "Pizza", emoji: "🍕", items: [
-    { name: "Margharita", desc: "Classic tomato base, fresh mozzarella, basil", price: "3,500" },
-    { name: "Pepperoni", desc: "Spicy pepperoni, tomato sauce, mozzarella", price: "3,900" },
-    { name: "Ham & Mushroom", desc: "Ham, mushrooms, mozzarella, tomato base", price: "3,600" },
-    { name: "Spinach Feta", desc: "Spinach, feta cheese, white sauce, walnuts", price: "3,900" },
-    { name: "Prosciutto & Arugula", desc: "Prosciutto, fresh arugula, parmesan, tomato base", price: "5,800" },
-    { name: "Signature Quattro Formaggi", desc: "Four-cheese blend on a golden crispy base", price: "4,800" },
+  { category: "Pizza", categoryRU: "Пицца", categoryAM: "Պիccа", emoji: "🍕", items: [
+    { name: "Margharita", nameRU: "Маргарита", nameAM: "Մargarita", desc: "Classic tomato base, fresh mozzarella, basil", descRU: "Классический томатный соус, свежая моцарелла, базилик", descAM: "Dasy lolikajin hnoc, taza mocarella, basilik", price: "3,500" },
+    { name: "Pepperoni", nameRU: "Пепперони", nameAM: "Pepperoni", desc: "Spicy pepperoni, tomato sauce, mozzarella", descRU: "Острый пепперони, томатный соус, моцарелла", descAM: "Sarika pepperoni, lolikajin hnoc, mocarella", price: "3,900" },
+    { name: "Ham & Mushroom", nameRU: "Ветчина и грибы", nameAM: "Xnkujayin yev sounk", desc: "Ham, mushrooms, mozzarella, tomato base", descRU: "Ветчина, грибы, моцарелла, томатная основа", descAM: "Xnkujayin, sounk, mocarella, lolikajin hnoc", price: "3,600" },
+    { name: "Spinach Feta", nameRU: "Шпинат-фета", nameAM: "Shapin-ֆeta", desc: "Spinach, feta cheese, white sauce, walnuts", descRU: "Шпинат, сыр фета, белый соус, грецкие орехи", descAM: "Shapin, feta panir, spitak hnoc, karukh", price: "3,900" },
+    { name: "Prosciutto & Arugula", nameRU: "Прошутто и руккола", nameAM: "Proshutto yev Rukkola", desc: "Prosciutto, fresh arugula, parmesan, tomato base", descRU: "Прошутто, свежая руккола, пармезан, томатная основа", descAM: "Proshutto, taza rukkola, parmezan, lolikajin hnoc", price: "5,800" },
+    { name: "Signature Quattro Formaggi", nameRU: "Фирменная Кватро Формаджи", nameAM: "Ֆirmayin Quattro Formaggi", desc: "Four-cheese blend on a golden crispy base", descRU: "Четыре сыра на золотистой хрустящей основе", descAM: "Chors panirի xaruct voraki vra", price: "4,800" },
   ]},
-  { category: "Salads", emoji: "🥗", items: [
-    { name: "Burrata & Avocado", desc: "Burrata, avocado, cherry tomatoes, spinach pesto, basil", price: "5,900" },
-    { name: "Caesar with Chicken", desc: "Classic caesar, grilled chicken breast", price: "3,500" },
-    { name: "Barbados Salad", desc: "Marble beef, marinated onion, bell pepper, avocado, mix salad, ranch sauce", price: "4,800" },
-    { name: "Salmon & Quinoa", desc: "Salmon and quinoa salad", price: "4,900" },
-    { name: "Detox Salad", desc: "Green apple, quinoa, mix salad, avocado", price: "3,200" },
-    { name: "Ranch with Shrimps & Bacon", desc: "Ranch dressing, shrimps, bacon and sweet corn", price: "4,400" },
+  { category: "Salads", categoryRU: "Салаты", categoryAM: "Ａղcannеr", emoji: "🥗", items: [
+    { name: "Burrata & Avocado", nameRU: "Буррата и авокадо", nameAM: "Burrata yev Avokado", desc: "Burrata, avocado, cherry tomatoes, spinach pesto, basil", descRU: "Буррата, авокадо, помидоры черри, песто из шпината, базилик", descAM: "Burrata, avokado, cherry lolik, spinaci pesto, basilik", price: "5,900" },
+    { name: "Caesar with Chicken", nameRU: "Цезарь с курицей", nameAM: "Цезарь havi misoV", desc: "Classic caesar, grilled chicken breast", descRU: "Классический цезарь, куриная грудка гриль", descAM: "Dasy cezar, grilu havi krdzak", price: "3,500" },
+    { name: "Barbados Salad", nameRU: "Барбадос", nameAM: "Barbados Агцан", desc: "Marble beef, marinated onion, bell pepper, avocado, mix salad, ranch sauce", descRU: "Мраморная говядина, маринованный лук, болгарский перец, авокадо, микс-салат, соус ранч", descAM: "Marmari tajateri mis, marinadé соgnak, bolgarakan pilpil, avokado", price: "4,800" },
+    { name: "Salmon & Quinoa", nameRU: "Лосось и киноа", nameAM: "Saghmon yev Kinoa", desc: "Salmon and quinoa salad", descRU: "Салат с лососем и киноа", descAM: "Saghmon yev kinoa aghcan", price: "4,900" },
+    { name: "Detox Salad", nameRU: "Детокс салат", nameAM: "Detox Аղцан", desc: "Green apple, quinoa, mix salad, avocado", descRU: "Зелёное яблоко, киноа, микс-салат, авокадо", descAM: "Kanach khandzor, kinoa, mix aghcan, avokado", price: "3,200" },
+    { name: "Ranch with Shrimps & Bacon", nameRU: "Ранч с креветками и беконом", nameAM: "Ranch krevetkajin yev bekon", desc: "Ranch dressing, shrimps, bacon and sweet corn", descRU: "Соус ранч, креветки, бекон и сладкая кукуруза", descAM: "Ranch hnoc, krevetknер, bekon yev qaqav", price: "4,400" },
   ]},
-  { category: "Main Courses", emoji: "🥩", items: [
-    { name: "Ribeye Steak", desc: "Premium cut ribeye steak", price: "16,900" },
-    { name: "Fillet Mignon", desc: "Tender fillet mignon with mashed potatoes and truffle sauce", price: "9,600" },
-    { name: "Sous Vide Chicken", desc: "Chicken breast with creamy spinach, cashew nuts and basil oil", price: "3,800" },
-    { name: "Grilled Salmon with Asparagus", desc: "Salmon fillet grilled, served with fresh asparagus", price: "10,600" },
-    { name: "Texas Leg", desc: "Chicken thigh, BBQ sauce, village-style potatoes", price: "3,800" },
-    { name: "Seafood Fried Rice", desc: "Rice with mussels, shrimps, seafood", price: "5,500" },
+  { category: "Main Courses", categoryRU: "Основные блюда", categoryAM: "Giшanakan Utestner", emoji: "🥩", items: [
+    { name: "Ribeye Steak", nameRU: "Стейк Рибай", nameAM: "Ribeye Steik", desc: "Premium cut ribeye steak", descRU: "Стейк Рибай премиум", descAM: "Premium Ribeye steik", price: "16,900" },
+    { name: "Fillet Mignon", nameRU: "Филе-миньон", nameAM: "Filet Mignon", desc: "Tender fillet mignon with mashed potatoes and truffle sauce", descRU: "Нежное филе-миньон с пюре и трюфельным соусом", descAM: "Fillet mignon kartofili pure yev trtfeli hnoci het", price: "9,600" },
+    { name: "Sous Vide Chicken", nameRU: "Курица су-вид", nameAM: "Sous Vide hav", desc: "Chicken breast with creamy spinach, cashew nuts and basil oil", descRU: "Куриная грудка с кремовым шпинатом, орехами кешью и базиликовым маслом", descAM: "Havi krdzak spinaci, kashu yev basiliki yugh", price: "3,800" },
+    { name: "Grilled Salmon with Asparagus", nameRU: "Лосось гриль со спаржей", nameAM: "Grilu saghmon asparagusi het", desc: "Salmon fillet grilled, served with fresh asparagus", descRU: "Филе лосося на гриле со свежей спаржей", descAM: "Grilu saghmon taza asparagusi het", price: "10,600" },
+    { name: "Texas Leg", nameRU: "Техасское бедро", nameAM: "Texas Oter", desc: "Chicken thigh, BBQ sauce, village-style potatoes", descRU: "Куриное бедро, соус Барбекю, картофель по-деревенски", descAM: "Havi oter, BBQ hnoc, giyughayin kartoфil", price: "3,800" },
+    { name: "Seafood Fried Rice", nameRU: "Жареный рис с морепродуктами", nameAM: "Covajin beranelu bet", desc: "Rice with mussels, shrimps, seafood", descRU: "Рис с мидиями, креветками и морепродуктами", descAM: "Brinj midiyаneri, krevetkneri yev covayin mtseri het", price: "5,500" },
   ]},
-  { category: "Sandwiches", emoji: "🥪", items: [
-    { name: "Steak Sandwich", desc: "Beef tenderloin, caramelized onions, gouda, tomatoes, mixed salad", price: "5,600" },
-    { name: "Philly Cheese Sandwich", desc: "Beef, mushrooms, onions, mozzarella, caramelized onions, baguette", price: "5,400" },
-    { name: "Open Sandwich — Salmon & Avocado", desc: "Salmon, avocado, spinach, creamy cheese and basil oil", price: "4,500" },
-    { name: "Beef Burger", desc: "Beef burger with village potatoes", price: "3,900" },
-    { name: "Chicken Burger", desc: "Chicken burger with french fries", price: "3,600" },
-    { name: "Croissant — Smoked Salmon & Avocado", desc: "Buttery croissant filled with smoked salmon and avocado", price: "4,600" },
+  { category: "Sandwiches", categoryRU: "Сэндвичи и бургеры", categoryAM: "Sendvicher yev Burgerner", emoji: "🥪", items: [
+    { name: "Steak Sandwich", nameRU: "Стейк Сэндвич", nameAM: "Steik Sendvich", desc: "Beef tenderloin, caramelized onions, gouda, tomatoes, mixed salad", descRU: "Говяжья вырезка, карамелизированный лук, гауда, помидоры, микс-салат", descAM: "Tajateri vyrka, karamelizireval sognakh, gauda, lolik", price: "5,600" },
+    { name: "Philly Cheese Sandwich", nameRU: "Сэндвич Филли Чиз", nameAM: "Philly Cheese Sendvich", desc: "Beef, mushrooms, onions, mozzarella, caramelized onions, baguette", descRU: "Говядина, грибы, лук, моцарелла, карамелизированный лук, багет", descAM: "Tajateni mis, sounk, sognakh, mocarella, baget", price: "5,400" },
+    { name: "Open Sandwich — Salmon & Avocado", nameRU: "Открытый сэндвич — Лосось и авокадо", nameAM: "Baц sendvich — Saghmon yev Avokado", desc: "Salmon, avocado, spinach, creamy cheese and basil oil", descRU: "Лосось, авокадо, шпинат, сливочный сыр и базиликовое масло", descAM: "Saghmon, avokado, spinac, kremoter panir yev basiliki yugh", price: "4,500" },
+    { name: "Beef Burger", nameRU: "Говяжий бургер", nameAM: "Tajateni Burger", desc: "Beef burger with village potatoes", descRU: "Бургер из говядины с деревенским картофелем", descAM: "Tajateni burger giyughayin kartofili het", price: "3,900" },
+    { name: "Chicken Burger", nameRU: "Куриный бургер", nameAM: "Havi Burger", desc: "Chicken burger with french fries", descRU: "Куриный бургер с картофелем фри", descAM: "Havi burger fri kartofili het", price: "3,600" },
+    { name: "Croissant — Smoked Salmon & Avocado", nameRU: "Круассан — Копчёный лосось и авокадо", nameAM: "Kruasan — Cxac saghmon yev avokado", desc: "Buttery croissant filled with smoked salmon and avocado", descRU: "Круассан с копчёным лososем и авокадо", descAM: "Cxac saghmonov yev avokadoov lela kruasan", price: "4,600" },
   ]},
-  { category: "Snacks", emoji: "🍤", items: [
-    { name: "Bruschetta with Prawns & Guacamole", desc: "Prawns, guacamole and cherry tomatoes on crispy bread", price: "4,600" },
-    { name: "Feta in Forno", desc: "Baked feta with cherry tomatoes", price: "2,900" },
-    { name: "Mozzarella Sticks", desc: "Golden mozzarella sticks with ranch sauce", price: "2,500" },
-    { name: "Shrimp Tempura", desc: "Crispy shrimp tempura with sweet-chili sauce", price: "3,900" },
-    { name: "Chicken Yakitori", desc: "Chicken breast, peanut sauce, sesame seeds and rice", price: "3,500" },
-    { name: "Spring Roll with Vegetables", desc: "Fresh spring rolls with vegetables", price: "2,900" },
+  { category: "Snacks", categoryRU: "Закуски", categoryAM: "Nakhoutestner", emoji: "🍤", items: [
+    { name: "Bruschetta with Prawns & Guacamole", nameRU: "Брускетта с креветками и гуакамоле", nameAM: "Bruschetta krevetkajin yev guakamole", desc: "Prawns, guacamole and cherry tomatoes on crispy bread", descRU: "Креветки, гуакамоле и помидоры черри на хрустящем хлебе", descAM: "Krevetknер, guakamole yev cherry loliknеr хrustащem haci vra", price: "4,600" },
+    { name: "Feta in Forno", nameRU: "Фета в духовке", nameAM: "Feta Vжaraki mej", desc: "Baked feta with cherry tomatoes", descRU: "Сыр фета в духовке с помидорами черри", descAM: "Кpchec feta cherry lolikneri het", price: "2,900" },
+    { name: "Mozzarella Sticks", nameRU: "Палочки моцареллы", nameAM: "Mocarellajin cekhunknеr", desc: "Golden mozzarella sticks with ranch sauce", descRU: "Золотистые палочки моцареллы с соусом Ранч", descAM: "Vosk mocarellajin cekhunknер ranch hnoci het", price: "2,500" },
+    { name: "Shrimp Tempura", nameRU: "Темпура из креветок", nameAM: "Krevetkneri Tempura", desc: "Crispy shrimp tempura with sweet-chili sauce", descRU: "Хрустящая темпура из креветок с остро-сладким соусом", descAM: "Хrustaцun krevetkneri tempura kndrot-karcar hnoci het", price: "3,900" },
+    { name: "Chicken Yakitori", nameRU: "Якитори из курицы", nameAM: "Havi Yakitori", desc: "Chicken breast, peanut sauce, sesame seeds and rice", descRU: "Куриная грудка, арахисовый соус, кунжут и рис", descAM: "Havi krdzak, geteшtenajin hnoc, kushush yev brinj", price: "3,500" },
+    { name: "Spring Roll with Vegetables", nameRU: "Спринг-ролл с овощами", nameAM: "Banjarkeghnajin Spring Roll", desc: "Fresh spring rolls with vegetables", descRU: "Свежие спринг-роллы с овощами", descAM: "Taza banjarkeghnajin spring rolnер", price: "2,900" },
   ]},
 ];
 
-const FEATURES = [
-  { icon: "✦", title: "Legendary Breakfasts", desc: "Large portions, beautiful plating, and comforting flavors that make mornings worth waking up for." },
-  { icon: "◈", title: "Thin & Crispy Pizza", desc: "Italian-inspired texture, fresh ingredients, and that perfect char — made with genuine care." },
-  { icon: "◉", title: "Specialty Coffee", desc: "Single-origin beans, precision brewing, and latte art that makes every cup a small ceremony." },
-  { icon: "❋", title: "Artisan Desserts", desc: "The lemon tart alone has brought people back. Our pastry selection changes seasonally." },
-  { icon: "◇", title: "Warm Hospitality", desc: "Friendly staff who remember you. Service that feels personal, never rushed, never corporate." },
-  { icon: "○", title: "Cozy Atmosphere", desc: "Natural light, warm textures, and a pace of life that encourages you to stay a little longer." },
+const REVIEWS = [
+  { name: "Անի Մ.", rating: 5, text: { EN: "The coziest place with incredibly attentive staff. We stayed for hours and nobody rushed us — that's rare.", RU: "Уютнейшее место с невероятно внимательным персоналом. Мы провели несколько часов, и никто нас не торопил — это редкость.", AM: "Ամenajin haramar vayry anhavanak uzhadіr andznakazmov. Meny corer mnacinq yev vochinch chi шtapecrel — das handipum e handc." }, avatar: "Ա" },
+  { name: "Давид К.", rating: 5, text: { EN: "Best lemon tart I've ever had. The presentation alone is worth coming for — it looked almost too beautiful to eat.", RU: "Лучший лимонный тарт в моей жизни. Подача сама по себе стоит визита — он выглядел почти слишком красиво, чтобы его есть.", AM: "Kajanach lemon tartь vor erkbeq keram: Nerkayacumov miajin arje gal yev tesnel." }, avatar: "Դ" },
+  { name: "Наре С.", rating: 5, text: { EN: "Crispy thin pizzas, perfectly brewed coffee, and the warmest atmosphere. This is our family's go-to place now.", RU: "Тонкая хрустящая пицца, идеально сваренный кофе и теплейшая атмосфера. Теперь это наше семейное место.", AM: "Barak xrustacun pizza, kaghut surj yev jam mtnolort. Das mer yntaniqy sireli vayry e." }, avatar: "Ն" },
+  { name: "Армен Г.", rating: 5, text: { EN: "Fast service, generous portions, and the breakfast plating is like something from a magazine. Absolutely stellar.", RU: "Быстрое обслуживание, щедрые порции, а подача завтрака — как в журнале. Просто великолепно.", AM: "Aragon spasarkum, aratunner bayanner yev nakhacashi matucumь журнালіі nman e. Partz andz." }, avatar: "Ա" },
+  { name: "Мариам Т.", rating: 5, text: { EN: "We've been back four times this month. The atmosphere just pulls you in. The staff remembers your name.", RU: "Мы уже четыре раза были в этом месяце. Атмосфера просто затягивает. Персонал помнит твоё имя.", AM: "Ays amis 4 angam enq ekelis. Mtnolortн просто qoshum e. Andznakazmy hivandanum e kogh anuny." }, avatar: "Մ" },
+  { name: "Сона В.", rating: 4, text: { EN: "Incredible coffee and desserts. The cappuccino foam art was perfect. The interior is stunning — very photogenic.", RU: "Невероятный кофе и десерты. Латте-арт на капучино был безупречен. Интерьер поражает — очень фотогеничный.", AM: "Anhavanak surj yev dezertnеr. Kapuchino art kanakach er. Interior shata gravabitek e." }, avatar: "Ս" },
 ];
 
 function useScrollReveal() {
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach(e => e.isIntersecting && e.target.classList.add("revealed")),
-      { threshold: 0.12 }
-    );
-    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
-    return () => observer.disconnect();
+    const timer = setTimeout(() => {
+      const observer = new IntersectionObserver(
+        (entries) => entries.forEach(e => e.isIntersecting && e.target.classList.add("revealed")),
+        { threshold: 0.1 }
+      );
+      document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+      return () => observer.disconnect();
+    }, 100);
+    return () => clearTimeout(timer);
   }, []);
 }
 
@@ -87,6 +249,9 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState(0);
   const [scrolled, setScrolled] = useState(false);
+  const [lang, setLang] = useState("EN");
+  const [langOpen, setLangOpen] = useState(false);
+  const t = T[lang];
   useScrollReveal();
 
   useEffect(() => {
@@ -95,33 +260,75 @@ export default function App() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Close lang dropdown on outside click
+  useEffect(() => {
+    const handler = (e) => { if (!e.target.closest(".lang-switcher")) setLangOpen(false); };
+    document.addEventListener("click", handler);
+    return () => document.removeEventListener("click", handler);
+  }, []);
+
   const scrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     setMenuOpen(false);
   };
 
+  const LANGS = [
+    { code: "EN", flag: "🇬🇧", label: "English" },
+    { code: "RU", flag: "🇷🇺", label: "Русский" },
+    { code: "AM", flag: "🇦🇲", label: "Հայերեն" },
+  ];
+
+  const getMenuCat = (item) => lang === "RU" ? item.categoryRU : lang === "AM" ? item.categoryAM : item.category;
+  const getItemName = (item) => lang === "RU" ? item.nameRU : lang === "AM" ? item.nameAM : item.name;
+  const getItemDesc = (item) => lang === "RU" ? item.descRU : lang === "AM" ? item.descAM : item.desc;
+  const getReviewText = (r) => r.text[lang] || r.text.EN;
+
   return (
     <div className="app">
 
+      {/* ── NAV ── */}
       <nav className={`nav ${scrolled ? "nav--scrolled" : ""}`}>
         <div className="nav__logo" onClick={() => scrollTo("hero")}>
-          <img src="/logo.jpg" alt="The Brunch Cafe & Kitchen" className="nav__logo-img" />
+          <img src="/logo.jpg" alt="The Brunch" className="nav__logo-img" />
         </div>
         <ul className={`nav__links ${menuOpen ? "nav__links--open" : ""}`}>
-          {NAV_LINKS.map(l => (
-            <li key={l}><button onClick={() => scrollTo(l.toLowerCase())}>{l}</button></li>
+          {t.nav.map((l, i) => (
+            <li key={l}><button onClick={() => scrollTo(["menu","about","gallery","reviews","contact"][i])}>{l}</button></li>
           ))}
         </ul>
-        <button className="nav__cta" onClick={() => scrollTo("contact")}>Book a Table</button>
+
+        {/* Language Switcher */}
+        <div className="lang-switcher">
+          <button className="lang-switcher__trigger" onClick={() => setLangOpen(o => !o)}>
+            <span className="lang-switcher__flag">{LANGS.find(l => l.code === lang)?.flag}</span>
+            <span className="lang-switcher__code">{lang}</span>
+            <span className={`lang-switcher__arrow ${langOpen ? "lang-switcher__arrow--open" : ""}`}>▾</span>
+          </button>
+          <div className={`lang-switcher__dropdown ${langOpen ? "lang-switcher__dropdown--open" : ""}`}>
+            {LANGS.map(l => (
+              <button key={l.code}
+                className={`lang-switcher__option ${lang === l.code ? "lang-switcher__option--active" : ""}`}
+                onClick={() => { setLang(l.code); setLangOpen(false); }}>
+                <span>{l.flag}</span>
+                <span>{l.label}</span>
+                {lang === l.code && <span className="lang-switcher__check">✓</span>}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <button className="nav__burger" onClick={() => setMenuOpen(o => !o)} aria-label="menu">
           <span /><span /><span />
         </button>
       </nav>
 
-      <a className={`sticky-cta ${scrolled ? "sticky-cta--visible" : ""}`} onClick={() => scrollTo("contact")}>
-        Reserve a Spot
+      {/* ── STICKY CTA — calls real number ── */}
+      <a className={`sticky-cta ${scrolled ? "sticky-cta--visible" : ""}`}
+        href="tel:+37444012125">
+        {t.reserveSpot}
       </a>
 
+      {/* ── HERO ── */}
       <section id="hero" className="hero">
         <div className="hero__bg">
           <div className="hero__overlay" />
@@ -131,24 +338,21 @@ export default function App() {
         </div>
         <div className="hero__content">
           <div className="hero__badge reveal">
-            <span className="star">★</span> 4.5 · 200+ guests · Yerevan's favorite brunch
+            <span className="star">★</span> {t.heroBadge}
           </div>
           <h1 className="hero__headline reveal">
-            More Than Brunch —<br />
-            <em>It's Your Favorite<br />Part of the Day.</em>
+            {t.heroHeadline1}<br />
+            <em>{t.heroHeadline2}<br />{t.heroHeadline3}</em>
           </h1>
-          <p className="hero__sub reveal">
-            Handcrafted breakfasts, thin crispy pizzas, specialty coffee, and the kind of warmth
-            that keeps guests coming back again and again.
-          </p>
+          <p className="hero__sub reveal">{t.heroSub}</p>
           <div className="hero__ctas reveal">
-            <button className="btn btn--primary" onClick={() => scrollTo("contact")}>Book a Table</button>
-            <button className="btn btn--ghost" onClick={() => scrollTo("menu")}>Explore Menu</button>
+            <button className="btn btn--primary" onClick={() => scrollTo("contact")}>{t.heroCta1}</button>
+            <button className="btn btn--ghost" onClick={() => scrollTo("menu")}>{t.heroCta2}</button>
           </div>
           <div className="hero__proof reveal">
-            <div className="proof-pill">🏅 Family Friendly</div>
-            <div className="proof-pill">☕ Specialty Coffee</div>
-            <div className="proof-pill">✦ Returning Guests Daily</div>
+            <div className="proof-pill">{t.pill1}</div>
+            <div className="proof-pill">{t.pill2}</div>
+            <div className="proof-pill">{t.pill3}</div>
           </div>
         </div>
         <div className="hero__scroll-hint">
@@ -157,14 +361,12 @@ export default function App() {
         </div>
       </section>
 
+      {/* ── STATS ── */}
       <section className="stats">
         <div className="container">
-          {[
-            ["200+", "Google Reviews"],
-            ["4.5★", "Average Rating"],
-            ["Daily", "Returning Guests"],
-            ["100%", "Handcrafted Menu"],
-          ].map(([num, label]) => (
+          {[["200+","4.5★","Daily","100%"], t.statsLabels].reduce((acc, _, __, arr) =>
+            arr[0].map((num, i) => ({ num, label: arr[1][i] }))
+          , []).map(({ num, label }) => (
             <div className="stat reveal" key={label}>
               <span className="stat__num">{num}</span>
               <span className="stat__label">{label}</span>
@@ -173,18 +375,20 @@ export default function App() {
         </div>
       </section>
 
+      {/* ── FEATURES ── */}
       <section id="menu" className="features">
         <div className="container">
           <div className="section-header reveal">
-            <span className="section-tag">The Experience</span>
-            <h2>Everything We Do, We Do With Care</h2>
-            <p>From the first coffee pour to the last dessert bite — every detail is intentional.</p>
+            <span className="section-tag">{t.expTag}</span>
+            <h2>{t.expTitle}</h2>
+            <p>{t.expSub}</p>
           </div>
           <div className="features__grid">
-            {FEATURES.map((f, i) => (
-              <div className="feature-card reveal" key={f.title} style={{ animationDelay: `${i * 0.08}s` }}>
+            {t.features.map((f, i) => (
+              <div className="feature-card reveal" key={f.title}>
                 <span className="feature-card__icon">{f.icon}</span>
                 <h3>{f.title}</h3>
+                <p className="feature-card__dish">{f.dish}</p>
                 <p>{f.desc}</p>
               </div>
             ))}
@@ -192,101 +396,110 @@ export default function App() {
         </div>
       </section>
 
+      {/* ── GALLERY ── */}
       <section id="gallery" className="gallery">
         <div className="container">
           <div className="section-header reveal">
-            <span className="section-tag">Gallery</span>
-            <h2>Every Dish Tells a Story</h2>
+            <span className="section-tag">{t.galleryTag}</span>
+            <h2>{t.galleryTitle}</h2>
           </div>
           <div className="gallery__grid">
             {[
-              { label: "Happy Guests", size: "tall", image: "/hpguest.jpg" },
-              { label: "Desserts", size: "normal", image: "/deserts.jpg" },
-              { label: "Pizza", size: "normal", image: "/pizza.jpg" },
-              { label: "Interior", size: "tall", image: "/interior.jpg" },
-              { label: "Coffee Art", size: "normal", image: "/cfart.jpg" },
-              { label: "Breakfast Plates", size: "normal", image: "/breakfast.jpg" },
+              { label: "Happy Guests", size: "tall", image: "/hpguests.jpg" },
+              { label: "Desserts",     size: "normal", image: "/deserts.jpg" },
+              { label: "Pizza",        size: "normal", image: "/pizza.jpg" },
+              { label: "Interior",     size: "tall", image: "/interior.jpg" },
+              { label: "Coffee Art",   size: "normal", image: "/cfart.jpg" },
+              { label: "Breakfast",    size: "normal", image: "/breakfast.jpg" },
             ].map((item, i) => (
-              <div className={`gallery__item gallery__item--${item.size} reveal`} key={i}
-                style={{ background: item.color, animationDelay: `${i * 0.06}s` }}>
+              <div
+                className={`gallery__item gallery__item--${item.size} reveal`}
+                key={i}
+                style={{
+                  backgroundImage: `url(${item.image})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  animationDelay: `${i * 0.06}s`
+                }}>
                 <div className="gallery__item-inner">
                   <span>{item.label}</span>
                 </div>
               </div>
             ))}
           </div>
-          <p className="gallery__note reveal">📸 Real photos coming from The BRUNCH kitchen</p>
+          <p className="gallery__note reveal">{t.galleryNote}</p>
         </div>
       </section>
 
+      {/* ── MENU ── */}
       <section className="menu-section">
         <div className="container">
           <div className="section-header reveal">
-            <span className="section-tag">Our Menu</span>
-            <h2>Made Fresh, Every Morning</h2>
-            <p>A menu built around quality ingredients and recipes that genuinely excite us.</p>
+            <span className="section-tag">{t.menuTag}</span>
+            <h2>{t.menuTitle}</h2>
+            <p>{t.menuSub}</p>
           </div>
           <div className="menu-tabs reveal">
             {MENU_ITEMS.map((cat, i) => (
-              <button key={cat.category} className={`menu-tab ${activeMenu === i ? "menu-tab--active" : ""}`}
+              <button key={cat.category}
+                className={`menu-tab ${activeMenu === i ? "menu-tab--active" : ""}`}
                 onClick={() => setActiveMenu(i)}>
-                {cat.emoji} {cat.category}
+                {cat.emoji} {getMenuCat(cat)}
               </button>
             ))}
           </div>
-          <div className="menu-items" key={activeMenu}>
+          <div className="menu-items" key={`${activeMenu}-${lang}`}>
             {MENU_ITEMS[activeMenu].items.map((item, i) => (
-              <div className="menu-item menu-item--animate" key={item.name} style={{ animationDelay: `${i * 0.07}s` }}>
+              <div className="menu-item menu-item--animate" key={item.name}
+                style={{ animationDelay: `${i * 0.07}s` }}>
                 <div className="menu-item__info">
-                  <h4>{item.name}</h4>
-                  <p>{item.desc}</p>
+                  <h4>{getItemName(item)}</h4>
+                  <p>{getItemDesc(item)}</p>
                 </div>
                 <span className="menu-item__price">֏ {item.price}</span>
               </div>
             ))}
           </div>
           <div className="menu-cta reveal">
-            <button className="btn btn--outline" onClick={() => scrollTo("contact")}>
-              Reserve a Table
-            </button>
+            <button className="btn btn--outline" onClick={() => scrollTo("contact")}>{t.menuCta}</button>
           </div>
         </div>
       </section>
 
+      {/* ── ABOUT ── */}
       <section id="about" className="about">
         <div className="container about__layout">
           <div className="about__visual reveal">
             <div className="about__img-block">
               <div className="about__img-main" />
-              <div className="about__img-accent">
-                <span>"The place everyone comes back to."</span>
-              </div>
+              <div className="about__img-accent"><span>{t.aboutQuote}</span></div>
             </div>
           </div>
           <div className="about__text reveal">
-            <span className="section-tag">Our Story</span>
-            <h2>Built Around Comfort, Flavor & Connection</h2>
-            <p>The BRUNCH was born from a simple belief: mornings should feel special. Not rushed. Not ordinary. Special.</p>
-            <p>We built a place where breakfasts are generous, coffee is brewed with care, and the staff actually knows your name. Where conversations last longer because nobody's in a hurry to move you along.</p>
-            <p>Every dish on our menu was chosen because it genuinely excites us — from the perfectly crisped pizza bases to the lemon tart that people talk about for weeks after their first bite.</p>
-            <p>Located in the heart of Yerevan, The BRUNCH is for anyone who believes that the best part of the day deserves the best table in the room.</p>
-            <button className="btn btn--primary" onClick={() => scrollTo("contact")}>Come Visit Us</button>
+            <span className="section-tag">{t.aboutTag}</span>
+            <h2>{t.aboutTitle}</h2>
+            <p>{t.aboutP1}</p>
+            <p>{t.aboutP2}</p>
+            <p>{t.aboutP3}</p>
+            <p>{t.aboutP4}</p>
+            <button className="btn btn--primary" onClick={() => scrollTo("contact")}>{t.aboutCta}</button>
           </div>
         </div>
       </section>
 
+      {/* ── REVIEWS ── */}
       <section id="reviews" className="reviews">
         <div className="container">
           <div className="section-header reveal">
-            <span className="section-tag">Guest Reviews</span>
-            <h2>What Our Guests Are Saying</h2>
-            <p>Written by real guests. We share them exactly as they felt.</p>
+            <span className="section-tag">{t.reviewsTag}</span>
+            <h2>{t.reviewsTitle}</h2>
+            <p>{t.reviewsSub}</p>
           </div>
           <div className="reviews__grid">
             {REVIEWS.map((r, i) => (
               <div className="review-card reveal" key={r.name} style={{ animationDelay: `${i * 0.07}s` }}>
                 <div className="review-card__stars">{"★".repeat(r.rating)}</div>
-                <p className="review-card__text">"{r.text}"</p>
+                <p className="review-card__text">"{getReviewText(r)}"</p>
                 <div className="review-card__author">
                   <div className="review-card__avatar">{r.avatar}</div>
                   <span>{r.name}</span>
@@ -297,21 +510,15 @@ export default function App() {
         </div>
       </section>
 
+      {/* ── WHY US ── */}
       <section className="why-us">
         <div className="container">
           <div className="section-header reveal">
-            <span className="section-tag">Why The BRUNCH</span>
-            <h2>More Than a Café. An Experience.</h2>
+            <span className="section-tag">{t.whyTag}</span>
+            <h2>{t.whyTitle}</h2>
           </div>
           <div className="why-us__grid">
-            {[
-              ["Fast & Attentive Service", "No long waits. Friendly faces. Staff who genuinely care."],
-              ["Consistent Quality", "Every visit feels as good as the first — that's the standard."],
-              ["Generous Portions", "We don't believe in tiny plates. Leave full and happy."],
-              ["Premium Coffee Program", "Sourced, roasted, and brewed to barista standards."],
-              ["Family Friendly", "A space where everyone — kids included — feels welcome."],
-              ["Memorable Desserts", "The kind that you think about on the drive home."],
-            ].map(([title, desc], i) => (
+            {t.whyItems.map(([title, desc], i) => (
               <div className="why-card reveal" key={title} style={{ animationDelay: `${i * 0.06}s` }}>
                 <div className="why-card__num">0{i + 1}</div>
                 <h4>{title}</h4>
@@ -322,107 +529,115 @@ export default function App() {
         </div>
       </section>
 
+      {/* ── CONTACT ── */}
       <section id="contact" className="visit">
         <div className="container">
           <div className="visit__layout">
-
             <div className="visit__info reveal">
-              <span className="section-tag">Come Find Us</span>
-              <h2>A Table Is Waiting<br /><em>Just for You.</em></h2>
-              <p className="visit__desc">
-                Whether it's a slow solo morning, a family gathering, or a date — 
-                The BRUNCH has a seat with your name on it.
-              </p>
+              <span className="section-tag">{t.contactTag}</span>
+              <h2>{t.contactTitle}<br /><em>{t.contactTitleEm}</em></h2>
+              <p className="visit__desc">{t.contactDesc}</p>
 
               <div className="visit__details">
+                {/* Two branches */}
                 <div className="visit__detail">
                   <div className="visit__detail-icon">📍</div>
                   <div>
-                    <strong>Location</strong>
-                    <p>Yerevan, Armenia</p>
+                    <strong>{t.loc}</strong>
+                    <div className="visit__branches">
+                      <a className="visit__branch" href="https://maps.google.com/?q=8+Vahram+Papazyan+St,+Yerevan" target="_blank" rel="noreferrer">
+                        <span className="visit__branch-num">1</span>
+                        <span>{t.branch1}</span>
+                      </a>
+                      <a className="visit__branch" href="https://maps.google.com/?q=Dalma+Garden+Mall,+Yerevan" target="_blank" rel="noreferrer">
+                        <span className="visit__branch-num">2</span>
+                        <span>{t.branch2}</span>
+                      </a>
+                    </div>
                   </div>
                 </div>
                 <div className="visit__detail">
                   <div className="visit__detail-icon">🕐</div>
                   <div>
-                    <strong>Hours</strong>
-                    <p>Mon – Sun: 10:00 – 22:00</p>
-                    <p className="visit__hours-note">Breakfast served until 16:00</p>
+                    <strong>{t.hours}</strong>
+                    <p>{t.hoursVal}</p>
+                    <p className="visit__hours-note">{t.hoursNote}</p>
                   </div>
                 </div>
                 <div className="visit__detail">
                   <div className="visit__detail-icon">📞</div>
                   <div>
-                    <strong>Reservations</strong>
-                    <p>+374 XX XXX XXX</p>
+                    <strong>{t.res}</strong>
+                    <p>+374 44 012 125</p>
                   </div>
                 </div>
               </div>
 
               <div className="visit__actions">
-                <a className="btn btn--primary" href="tel:+374XXXXXXXX">Call to Reserve</a>
-                <a className="btn btn--whatsapp" href="https://wa.me/374XXXXXXXX" target="_blank" rel="noreferrer">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                  WhatsApp
+                {/* Facebook */}
+                <a className="btn btn--facebook" href="https://www.facebook.com/thebrunchyerevan" target="_blank" rel="noreferrer">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                  {t.fbBtn}
+                </a>
+                {/* Instagram */}
+                <a className="btn btn--instagram" href="https://www.instagram.com/thebrunch.am" target="_blank" rel="noreferrer">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                  {t.igBtn}
                 </a>
               </div>
             </div>
 
+            {/* Right card */}
             <div className="visit__card reveal">
               <div className="visit__card-inner">
                 <div className="visit__card-logo">
                   <img src="/logo.jpg" alt="The Brunch" />
                 </div>
-                <div className="visit__card-tag">Café & Kitchen</div>
-                <blockquote className="visit__card-quote">
-                  "Made for slow mornings and great conversations."
-                </blockquote>
+                <div className="visit__card-tag">{t.cardTag}</div>
+                <blockquote className="visit__card-quote">{t.cardQuote}</blockquote>
                 <div className="visit__card-divider" />
                 <div className="visit__card-stats">
                   <div>
                     <span className="visit__card-stat-num">200+</span>
-                    <span className="visit__card-stat-label">Happy Guests</span>
+                    <span className="visit__card-stat-label">{t.cardStat1}</span>
                   </div>
                   <div>
                     <span className="visit__card-stat-num">4.5★</span>
-                    <span className="visit__card-stat-label">Google Rating</span>
+                    <span className="visit__card-stat-label">{t.cardStat2}</span>
                   </div>
                   <div>
                     <span className="visit__card-stat-num">6+</span>
-                    <span className="visit__card-stat-label">Menu Sections</span>
+                    <span className="visit__card-stat-label">{t.cardStat3}</span>
                   </div>
                 </div>
-                <button className="visit__card-cta" onClick={() => window.location.href = 'tel:+374XXXXXXXX'}>
-                  Make a Reservation ✦
-                </button>
+                <a className="visit__card-cta" href="tel:+37444012125">{t.cardCta}</a>
               </div>
             </div>
-
           </div>
         </div>
       </section>
 
+      {/* ── FOOTER ── */}
       <footer className="footer">
         <div className="container footer__layout">
           <div className="footer__brand">
-            <div className="footer__logo">
-              <img src="/logo.jpg" alt="The Brunch" className="footer__logo-img" />
-            </div>
-            <p className="footer__tagline">Made for slow mornings<br />and great conversations.</p>
+            <img src="/logo.jpg" alt="The Brunch" className="footer__logo-img" />
+            <p className="footer__tagline">{t.footerTagline}</p>
           </div>
           <div className="footer__links">
-            {NAV_LINKS.map(l => (
-              <button key={l} onClick={() => scrollTo(l.toLowerCase())}>{l}</button>
+            {t.nav.map((l, i) => (
+              <button key={l} onClick={() => scrollTo(["menu","about","gallery","reviews","contact"][i])}>{l}</button>
             ))}
           </div>
           <div className="footer__contact">
-            <p>Yerevan, Armenia</p>
-            <p>+374 XX XXX XXX</p>
-            <p>Mon–Sun: 10:00 – 22:00</p>
+            <p>{t.branch1}</p>
+            <p>{t.branch2}</p>
+            <p>+374 44 012 125</p>
+            <p>{t.hoursVal}</p>
           </div>
         </div>
         <div className="footer__bottom">
-          <p>© 2025 The BRUNCH Café & Kitchen · All rights reserved · Made with ☕ in Yerevan</p>
+          <p>{t.footerCopy}</p>
         </div>
       </footer>
     </div>
