@@ -424,9 +424,21 @@ export default function App() {
   };
 
   const LANGS = [
-    { code: "EN", badge: "EN", color: "#012169", label: "English" },
-    { code: "RU", badge: "RU", color: "#CC0000", label: "Русский" },
-    { code: "AM", badge: "ՀԱՅ", color: "#D90012", label: "Հայerеn" },
+    { 
+      code: "EN", 
+      label: "English", 
+      flag: <img src="https://flagcdn.com/w20/gb.png" alt="UK" width="20" /> 
+    },
+    { 
+      code: "RU", 
+      label: "Русский", 
+      flag: <img src="https://flagcdn.com/w20/ru.png" alt="RU" width="20" /> 
+    },
+    { 
+      code: "AM", 
+      label: "Հայերեն", 
+      flag: <img src="https://flagcdn.com/w20/am.png" alt="AM" width="20" /> 
+    },
   ];
 
   const getMenuCat = (item) => lang === "RU" ? item.categoryRU : lang === "AM" ? item.categoryAM : item.category;
