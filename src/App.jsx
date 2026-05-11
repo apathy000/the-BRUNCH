@@ -40,7 +40,7 @@ const T = {
     contactDesc: "Whether it's a slow solo morning, a family gathering, or a date — The BRUNCH has a seat with your name on it.",
     loc: "Location", hours: "Hours", hoursVal: "Mon – Sun: 10:00 – 22:00",
     hoursNote: "Breakfast served until 16:00", res: "Reservations",
-    branch1: "8 Vahram Papazyan St, Yerevan", branch2: "Dalma Garden Mall, Yerevan",
+    branch1: "8 Vahram Papazyan St, Yerevan", branch2: "Dalma Garden Mall, Yerevan", branch3: "The Brunch Cascad",
     fbBtn: "Facebook", igBtn: "Instagram",
     cardTag: "Café & Kitchen", cardQuote: "\"Made for slow mornings and great conversations.\"",
     cardStat1: "Happy Guests", cardStat2: "Google Rating", cardStat3: "Menu Sections",
@@ -762,6 +762,9 @@ export default function App() {
                       </a>
                       <a className="visit__branch" href="https://maps.google.com/?q=Dalma+Garden+Mall,+Yerevan" target="_blank" rel="noreferrer">
                         <span className="visit__branch-num">2</span><span>{t.branch2}</span>
+                      </a>
+                      <a className="visit__branch" href="" target="_blank" rel="noreferrer">
+                        <span className="visit__branch-num">3</span><span>{t.branch3}</span>
                       </a>
                     </div>
                   </div>
