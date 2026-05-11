@@ -818,9 +818,10 @@ export default function App() {
       <footer className="footer">
         <div className="container footer__layout">
           <div className="footer__brand">
-            <img src="/logo.jpg" alt="The Brunch" className="footer__logo-img" />
+            <img src="/logo.png" alt="The Brunch" className="footer__logo-img" />
             <p className="footer__tagline">{t.footerTagline}</p>
           </div>
+          
           <div className="footer__links">
             {t.nav.map((l, i) => (
               <button key={l} onClick={() => scrollTo(["menu","about","gallery","reviews","contact"][i])}>{l}</button>
