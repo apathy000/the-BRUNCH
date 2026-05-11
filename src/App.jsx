@@ -818,7 +818,7 @@ export default function App() {
       <footer className="footer">
         <div className="container footer__layout">
           <div className="footer__brand">
-            <img src="/logo1.png" alt="The Brunch" className="footer__logo-img" />
+            <img src="/logo.jpg" alt="The Brunch" className="footer__logo-img" />
             <p className="footer__tagline">{t.footerTagline}</p>
           </div>
           <div className="footer__links">
@@ -827,7 +827,7 @@ export default function App() {
             ))}
           </div>
           <div className="footer__contact">
-            <p>{t.branch1}</p><p>{t.branch2}</p>
+            <p>{t.branch1}</p><p>{t.branch2}</p><p>{t.branch3}</p>
             <p>+374 44 012 125</p><p>{t.hoursVal}</p>
           </div>
         </div>
