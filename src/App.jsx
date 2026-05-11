@@ -832,8 +832,9 @@ export default function App() {
             <p>+374 44 012 125</p><p>{t.hoursVal}</p>
           </div>
         </div>
-        <div className="footer__bottom">
-          <p>{t.footerCopy}</p>
+        
+        <div className="footer__bottom"><p>{t.footerCopy}</p>
+        <p>{t.footerCopy}</p>
           <a
             href="https://t.me/apath_y0"
             target="_blank"
@@ -843,7 +844,6 @@ export default function App() {
             Made by Vahe Vardanyan
           </a>
         </div>
-        <div className="footer__bottom"><p>{t.footerCopy}</p></div>
       </footer>
     </div>
   );
