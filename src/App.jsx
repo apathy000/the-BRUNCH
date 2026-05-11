@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 
-
 const T = {
   EN: {
     nav: ["Menu", "About", "Gallery", "Reviews", "Contact"],
@@ -670,7 +669,7 @@ export default function App() {
           <div className="menu-items" key={`${activeMenu}-${lang}`}>
             {MENU_ITEMS[activeMenu].items.map((item, i) => (
               <div className="menu-item menu-item--animate" key={item.name}
-                style={{ animationDelay: `${i * 0.07}s` }}>
+                style={{ animationDelay: `${i * 0.09}s` }}>
                 <div className="menu-item__info">
                   <h4>{getItemName(item)}</h4>
                   <p>{getItemDesc(item)}</p>

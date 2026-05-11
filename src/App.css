@@ -262,14 +262,15 @@ body {
 .menu-item__price { font-family: var(--font-display); font-size: 20px; font-weight: 500; color: var(--forest); white-space: nowrap; }
 .menu-cta { text-align: center; margin-top: 48px; }
 
-/* Menu items animate in fresh on every tab switch */
+/* Menu items — premium staggered slide-in from left */
 @keyframes menuItemIn {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
+  0%   { opacity: 0; transform: translateX(-32px) scale(0.98); }
+  60%  { opacity: 1; transform: translateX(6px) scale(1.005); }
+  100% { opacity: 1; transform: translateX(0) scale(1); }
 }
 .menu-item--animate {
   opacity: 0;
-  animation: menuItemIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation: menuItemIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 /* ── ABOUT ── */
