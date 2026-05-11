@@ -833,7 +833,7 @@ export default function App() {
           </div>
         </div>
         
-        <div className="footer__bottom"><p>{t.footerCopy}</p>
+        <div className="footer__bottom">
         <p>{t.footerCopy}</p>
           <a
             href="https://t.me/apath_y0"
