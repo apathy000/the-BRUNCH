@@ -651,3 +651,81 @@ body {
   .features__grid { grid-template-columns: 1fr !important; }
   .why-us__grid { grid-template-columns: 1fr !important; }
 }
+
+/* ══════════════════════════════════════
+   FINAL POLISH — flags + logo quality
+══════════════════════════════════════ */
+
+/* Lang trigger: flag + code side by side */
+.lang-switcher__trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+}
+.lang-switcher__code {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  font-family: var(--font-body);
+}
+
+/* Override any old lang-badge remnant */
+.lang-badge { display: none; }
+
+/* Lang dropdown option: flag + name side by side */
+.lang-switcher__option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+}
+.lang-switcher__option svg { flex-shrink: 0; }
+
+/* Logo — use logo1.png which is square, so make it a rounded square not circle */
+.nav__logo-img {
+  height: 48px;
+  width: 48px;
+  object-fit: contain;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+  background: var(--forest);
+  padding: 2px;
+  transition: var(--transition);
+}
+.nav__logo-img:hover { transform: scale(1.05); }
+
+/* Footer logo — same treatment */
+.footer__logo-img {
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  object-fit: contain;
+  background: var(--forest);
+  padding: 3px;
+  border: none;
+  margin-bottom: 16px;
+}
+
+/* Visit card logo */
+.visit__card-logo {
+  width: 110px;
+  height: 110px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 3px solid rgba(255,255,255,0.2);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+  position: relative;
+  z-index: 1;
+  background: var(--forest-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+}
+.visit__card-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

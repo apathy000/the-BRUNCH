@@ -423,22 +423,34 @@ export default function App() {
     setMenuOpen(false);
   };
 
+  const FlagEN = () => (
+    <svg width="24" height="16" viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" style={{borderRadius:3,display:'block',flexShrink:0}}>
+      <rect width="60" height="40" fill="#012169"/>
+      <path d="M0,0 L60,40 M60,0 L0,40" stroke="#fff" strokeWidth="8"/>
+      <path d="M0,0 L60,40 M60,0 L0,40" stroke="#C8102E" strokeWidth="5"/>
+      <path d="M30,0 V40 M0,20 H60" stroke="#fff" strokeWidth="13"/>
+      <path d="M30,0 V40 M0,20 H60" stroke="#C8102E" strokeWidth="8"/>
+    </svg>
+  );
+  const FlagRU = () => (
+    <svg width="24" height="16" viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" style={{borderRadius:3,display:'block',flexShrink:0}}>
+      <rect width="60" height="14" fill="#fff"/>
+      <rect y="13" width="60" height="14" fill="#0039A6"/>
+      <rect y="26" width="60" height="14" fill="#D52B1E"/>
+    </svg>
+  );
+  const FlagAM = () => (
+    <svg width="24" height="16" viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" style={{borderRadius:3,display:'block',flexShrink:0}}>
+      <rect width="60" height="14" fill="#D90012"/>
+      <rect y="13" width="60" height="14" fill="#0033A0"/>
+      <rect y="26" width="60" height="14" fill="#F2A800"/>
+    </svg>
+  );
+
   const LANGS = [
-    { 
-      code: "EN", 
-      label: "English", 
-      flag: <img src="https://flagcdn.com/w20/gb.png" alt="UK" width="20" /> 
-    },
-    { 
-      code: "RU", 
-      label: "Русский", 
-      flag: <img src="https://flagcdn.com/w20/ru.png" alt="RU" width="20" /> 
-    },
-    { 
-      code: "AM", 
-      label: "Հայերեն", 
-      flag: <img src="https://flagcdn.com/w20/am.png" alt="AM" width="20" /> 
-    },
+    { code: "EN", label: "English",  Flag: FlagEN },
+    { code: "RU", label: "Русский",  Flag: FlagRU },
+    { code: "AM", label: "Հայerеn", Flag: FlagAM },
   ];
 
   const getMenuCat = (item) => lang === "RU" ? item.categoryRU : lang === "AM" ? item.categoryAM : item.category;
@@ -453,7 +465,7 @@ export default function App() {
       {/* ── NAV ── */}
       <nav className={`nav ${scrolled ? "nav--scrolled" : ""}`}>
         <div className="nav__logo" onClick={() => scrollTo("hero")}>
-          <img src="/logo.jpg" alt="The Brunch" className="nav__logo-img" />
+          <img src="/logo1.png" alt="The Brunch" className="nav__logo-img" />
         </div>
         <ul className={`nav__links ${menuOpen ? "nav__links--open" : ""}`}>
           {t.nav.map((l, i) => (
@@ -462,9 +474,8 @@ export default function App() {
         </ul>
         <div className="lang-switcher">
           <button className="lang-switcher__trigger" onClick={() => setLangOpen(o => !o)}>
-            <span className="lang-badge" style={{ background: LANGS.find(l => l.code === lang)?.color }}>
-              {LANGS.find(l => l.code === lang)?.badge}
-            </span>
+            {(() => { const L = LANGS.find(l => l.code === lang); return L ? <L.Flag /> : null; })()}
+            <span className="lang-switcher__code">{lang}</span>
             <span className={`lang-switcher__arrow ${langOpen ? "lang-switcher__arrow--open" : ""}`}>▾</span>
           </button>
           <div className={`lang-switcher__dropdown ${langOpen ? "lang-switcher__dropdown--open" : ""}`}>
@@ -472,7 +483,7 @@ export default function App() {
               <button key={l.code}
                 className={`lang-switcher__option ${lang === l.code ? "lang-switcher__option--active" : ""}`}
                 onClick={() => { setLang(l.code); setLangOpen(false); }}>
-                <span className="lang-badge" style={{ background: l.color }}>{l.badge}</span>
+                <l.Flag />
                 <span>{l.label}</span>
                 {lang === l.code && <span className="lang-switcher__check">✓</span>}
               </button>
@@ -729,7 +740,7 @@ export default function App() {
             </div>
             <div className="visit__card reveal">
               <div className="visit__card-inner">
-                <div className="visit__card-logo"><img src="/logo.jpg" alt="The Brunch" /></div>
+                <div className="visit__card-logo"><img src="/logo1.png" alt="The Brunch" /></div>
                 <div className="visit__card-tag">{t.cardTag}</div>
                 <blockquote className="visit__card-quote">{t.cardQuote}</blockquote>
                 <div className="visit__card-divider" />
@@ -749,7 +760,7 @@ export default function App() {
       <footer className="footer">
         <div className="container footer__layout">
           <div className="footer__brand">
-            <img src="/logo.jpg" alt="The Brunch" className="footer__logo-img" />
+            <img src="/logo1.png" alt="The Brunch" className="footer__logo-img" />
             <p className="footer__tagline">{t.footerTagline}</p>
           </div>
           <div className="footer__links">
