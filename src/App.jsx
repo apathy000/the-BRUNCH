@@ -798,7 +798,7 @@ export default function App() {
             </div>
             <div className="visit__card reveal">
               <div className="visit__card-inner">
-                <div className="visit__card-logo"><img src="/logo1.png" alt="The Brunch" /></div>
+                <div className="visit__card-logo"><img src="/logo.png" alt="The Brunch" /></div>
                 <div className="visit__card-tag">{t.cardTag}</div>
                 <blockquote className="visit__card-quote">{t.cardQuote}</blockquote>
                 <div className="visit__card-divider" />
