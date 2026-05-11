@@ -252,11 +252,31 @@ body {
 .menu-tab { background: transparent; border: 1.5px solid var(--beige); color: var(--text-muted); font-family: var(--font-body); font-size: 14px; font-weight: 400; padding: 10px 24px; border-radius: var(--radius-xl); cursor: pointer; transition: var(--transition); }
 .menu-tab--active, .menu-tab:hover { background: var(--forest); border-color: var(--forest); color: white; }
 .menu-items { display: flex; flex-direction: column; gap: 16px; max-width: 800px; margin: 0 auto; }
-.menu-item { display: flex; align-items: center; justify-content: space-between; gap: 24px; background: var(--warm-white); border: 1px solid var(--beige); border-radius: var(--radius-md); padding: 26px 36px;
-  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease, border-color 0.4s ease;
-  transform: translateX(0);
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background: var(--warm-white);
+  border: 1px solid var(--beige);
+  border-radius: var(--radius-md);
+  padding: 26px 36px;
+  transition:
+    transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.45s ease,
+    border-color 0.45s ease,
+    padding 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background 0.3s ease;
+  transform-origin: left center;
+  cursor: pointer;
 }
-.menu-item:hover { transform: translateX(10px); box-shadow: 0 8px 32px rgba(45,92,74,0.14); border-color: rgba(45,92,74,0.25); }
+.menu-item:hover {
+  transform: scaleX(1.025) scaleY(1.03);
+  box-shadow: 0 12px 40px rgba(45, 92, 74, 0.18);
+  border-color: rgba(45, 92, 74, 0.3);
+  background: var(--forest-light);
+  padding: 30px 40px;
+}
 .menu-item__info h4 { font-family: var(--font-display); font-size: 20px; font-weight: 500; color: var(--espresso); margin-bottom: 4px; }
 .menu-item__info p { font-size: 14px; color: var(--text-muted); }
 .menu-item__price { font-family: var(--font-display); font-size: 20px; font-weight: 500; color: var(--forest); white-space: nowrap; }
@@ -547,21 +567,6 @@ body {
   margin-bottom: 12px;
 }
 .feature-card p { font-size: 15px; color: var(--text-muted); line-height: 1.7; }
-
-/* ── FIX 3: MENU ITEM hover — smooth slide from left, not just nudge ── */
-.menu-item {
-  padding: 26px 36px !important;
-  box-shadow: 0 2px 8px rgba(45,92,74,0.05);
-  transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94),
-              box-shadow 0.35s ease,
-              border-color 0.35s ease !important;
-  transform: translateX(0) !important;
-}
-.menu-item:hover {
-  transform: translateX(8px) !important;
-  box-shadow: 0 8px 32px rgba(45,92,74,0.14) !important;
-  border-color: rgba(45,92,74,0.2) !important;
-}
 
 /* ── FIX 4: WHY-US CARDS — force visible (were invisible due to reveal bug) ── */
 .why-us__grid {
