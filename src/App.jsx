@@ -337,7 +337,7 @@ const REVIEWS = [
     }, avatar: "Ա"
   },
   {
-    name: { EN: "David K.", RU: "Давид К.", AM: "Դavit K." },
+    name: { EN: "David K.", RU: "Давид К.", AM: "Դավիթ Կ." },
     rating: 5,
     text: {
       EN: "Best lemon tart I've ever had. The presentation alone is worth coming for — it looked almost too beautiful to eat.",
@@ -346,7 +346,7 @@ const REVIEWS = [
     }, avatar: "Դ"
   },
   {
-    name: { EN: "Nare S.", RU: "Наре С.", AM: "Նарe С." },
+    name: { EN: "Nare S.", RU: "Наре С.", AM: "Նարե Ս." },
     rating: 5,
     text: {
       EN: "Crispy thin pizzas, perfectly brewed coffee, and the warmest atmosphere. This is our family's go-to place now.",
@@ -355,7 +355,7 @@ const REVIEWS = [
     }, avatar: "Ն"
   },
   {
-    name: { EN: "Armen G.", RU: "Армен Г.", AM: "Արmen G." },
+    name: { EN: "Armen G.", RU: "Армен Г.", AM: "Արմեն Գ." },
     rating: 5,
     text: {
       EN: "Fast service, generous portions, and the breakfast plating is like something from a magazine. Absolutely stellar.",
@@ -364,7 +364,7 @@ const REVIEWS = [
     }, avatar: "Ա"
   },
   {
-    name: { EN: "Mariam T.", RU: "Мариам Т.", AM: "Maрiam T." },
+    name: { EN: "Mariam T.", RU: "Мариам Т.", AM: "Մարիամ Թ." },
     rating: 5,
     text: {
       EN: "We've been back four times this month. The atmosphere just pulls you in. The staff remembers your name.",
@@ -373,7 +373,7 @@ const REVIEWS = [
     }, avatar: "Մ"
   },
   {
-    name: { EN: "Sona V.", RU: "Сона В.", AM: "Sona V." },
+    name: { EN: "Sona V.", RU: "Сона В.", AM: "Սոնա Վ." },
     rating: 4,
     text: {
       EN: "Incredible coffee and desserts. The cappuccino foam art was perfect. The interior is stunning — very photogenic.",
