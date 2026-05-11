@@ -520,7 +520,7 @@ export default function App() {
       {/* ── NAV ── */}
       <nav className={`nav ${scrolled ? "nav--scrolled" : ""}`}>
         <div className="nav__logo" onClick={() => scrollTo("hero")}>
-          <img src="/logo.jpg" alt="The Brunch" className="nav__logo-img" />
+          <img src="/logo.png" alt="The Brunch" className="nav__logo-img" />
         </div>
         <ul className={`nav__links ${menuOpen ? "nav__links--open" : ""}`}>
           {t.nav.map((l, i) => (
