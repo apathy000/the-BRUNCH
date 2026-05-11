@@ -505,7 +505,7 @@ export default function App() {
   const LANGS = [
     { code: "EN", label: "English",  Flag: FlagEN },
     { code: "RU", label: "Русский",  Flag: FlagRU },
-    { code: "AM", label: "Հայerеn", Flag: FlagAM },
+    { code: "AM", label: "Հայերեն", Flag: FlagAM },
   ];
 
   const getMenuCat = (item) => lang === "RU" ? item.categoryRU : lang === "AM" ? item.categoryAM : item.category;
