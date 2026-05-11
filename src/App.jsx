@@ -687,7 +687,7 @@ export default function App() {
         <div className="container about__layout">
           <div className="about__visual reveal">
             <div className="about__img-block">
-              <div className="about__img-main" />
+            <div className="about__img-main" style={{ backgroundImage: "url('/visit.jpg')", backgroundSize: "cover", backgroundPosition: "center" }} />
               <div className="about__img-accent"><span>{t.aboutQuote}</span></div>
             </div>
           </div>
