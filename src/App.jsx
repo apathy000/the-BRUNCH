@@ -763,7 +763,7 @@ export default function App() {
                       <a className="visit__branch" href="https://maps.google.com/?q=Dalma+Garden+Mall,+Yerevan" target="_blank" rel="noreferrer">
                         <span className="visit__branch-num">2</span><span>{t.branch2}</span>
                       </a>
-                      <a className="visit__branch" href="" target="_blank" rel="noreferrer">
+                      <a className="visit__branch" href="https://maps.google.com/?q=The+Brunch+Cascade+Yerevan" target="_blank" rel="noreferrer">
                         <span className="visit__branch-num">3</span><span>{t.branch3}</span>
                       </a>
                     </div>
