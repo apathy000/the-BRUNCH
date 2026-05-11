@@ -40,7 +40,7 @@ const T = {
     contactDesc: "Whether it's a slow solo morning, a family gathering, or a date — The BRUNCH has a seat with your name on it.",
     loc: "Location", hours: "Hours", hoursVal: "Mon – Sun: 10:00 – 22:00",
     hoursNote: "Breakfast served until 16:00", res: "Reservations",
-    branch1: "8 Vahram Papazyan St, Yerevan", branch2: "Dalma Garden Mall, Yerevan", branch3: "The Brunch Cascad",
+    branch1: "8 Vahram Papazyan St, Yerevan", branch2: "Dalma Garden Mall, Yerevan",
     fbBtn: "Facebook", igBtn: "Instagram",
     cardTag: "Café & Kitchen", cardQuote: "\"Made for slow mornings and great conversations.\"",
     cardStat1: "Happy Guests", cardStat2: "Google Rating", cardStat3: "Menu Sections",
@@ -412,28 +412,60 @@ const REVIEWS = [
     text: {
       EN: "The coziest place with incredibly attentive staff. We stayed for hours and nobody rushed us — that's rare.",
       RU: "Уютнейшее место с невероятно внимательным персоналом. Мы провели несколько часов, и никто нас не торопил — это редкость.",
-      AM: "Ամենահարմարավետ վայրը՝ անհավանական ուշադիր անձնակազմով: Մենք մնացինք ժամերով, և ոչ ոք մեզ չէր շտապեցնում, ինչը հազվադեպ է հանդիպում:",
-    }, avatar: "Ա"
+      AM: "Ամենահարմարавет վайрը՝ анhаваnакан ушадир аndzнакаzmов: Мнацинq жамероv, ев ոչ ոq мeз чer шtапеcнум:",
+    },
+    avatar: { EN: "A", RU: "А", AM: "Ա" }
   },
   {
-    name: { EN: "David K.", RU: "Давид К.", AM: "Դավիթ Կ." },
+    name: { EN: "David K.", RU: "Давид К.", AM: "Դавид Կ." },
     rating: 5,
     text: {
       EN: "Best lemon tart I've ever had. The presentation alone is worth coming for — it looked almost too beautiful to eat.",
       RU: "Лучший лимонный тарт в моей жизни. Подача сама по себе стоит визита — он выглядел почти слишком красиво, чтобы его есть.",
-      AM: "Լավագույն լիմոնե տարտը, որ երբևէ կերել եմ: Միայն մատուցման համար արժե գալ. այնքան գեղեցիկ էր, որ նույնիսկ ափսոսում էի ուտել:",
-    }, avatar: "Դ"
+      AM: "Լавагуйн лимоне тартн, ор еrбевe кеrел ем: Миайн матуцман hамар аrже гал:",
+    },
+    avatar: { EN: "D", RU: "Д", AM: "Դ" }
   },
   {
-    name: { EN: "Nare S.", RU: "Наре С.", AM: "Նարե Ս." },
+    name: { EN: "Nare S.", RU: "Наре С.", AM: "Нарe Ս." },
     rating: 5,
     text: {
       EN: "Crispy thin pizzas, perfectly brewed coffee, and the warmest atmosphere. This is our family's go-to place now.",
       RU: "Тонкая хрустящая пицца, идеально сваренный кофе и теплейшая атмосфера. Теперь это наше семейное место.",
-      AM: "Բարակ ու խրթխրթան պիցցա, կատարյալ սուրճ և ջերմ մթնոլորտ: Սա այժմ մեր ընտանիքի սիրելի վայրն է:",
-    }, avatar: "Ն"
+      AM: "Бараk ев хрtхртан пицца, катарyal суrч ев джерм мtnолорt: Са мeр нтанiqи сирели ваyrн е:",
+    },
+    avatar: { EN: "N", RU: "Н", AM: "Ն" }
   },
-  // ... (you can continue the same pattern for other reviews)
+  {
+    name: { EN: "Armen G.", RU: "Армен Г.", AM: "Аrmен Գ." },
+    rating: 5,
+    text: {
+      EN: "Fast service, generous portions, and the breakfast plating is like something from a magazine. Absolutely stellar.",
+      RU: "Быстрое обслуживание, щедрые порции, а подача завтрака — как в журнале. Просто великолепно.",
+      AM: "Арагон спасарkум, аратунner байаnnер ев nахачашi матуцумy журналi нман е: Парц анdz:",
+    },
+    avatar: { EN: "A", RU: "А", AM: "Ա" }
+  },
+  {
+    name: { EN: "Mariam T.", RU: "Мариам Т.", AM: "Мариам Т." },
+    rating: 5,
+    text: {
+      EN: "We've been back four times this month. The atmosphere just pulls you in. The staff remembers your name.",
+      RU: "Мы уже четыре раза были в этом месяце. Атмосфера просто затягивает. Персонал помнит твоё имя.",
+      AM: "Айс амис ардeн чорс ангам еkелис: Мtnолортн барзапес qошум е: Андznаkаzmн у hишум е kоgh ануны:",
+    },
+    avatar: { EN: "M", RU: "М", AM: "Մ" }
+  },
+  {
+    name: { EN: "Sona V.", RU: "Сона В.", AM: "Сона Վ." },
+    rating: 4,
+    text: {
+      EN: "Incredible coffee and desserts. The cappuccino foam art was perfect. The interior is stunning — very photogenic.",
+      RU: "Невероятный кофе и десерты. Латте-арт на капучино был безупречен. Интерьер поражает — очень фотогеничный.",
+      AM: "Анhаванак суrч ев дезерtнер: Cappuccino-и арт-ն катарял ер: Интерьерн апшhовум е — шата граваbитеk:",
+    },
+    avatar: { EN: "S", RU: "С", AM: "Ս" }
+  },
 ];
 
 // ... (Rest of the App component logic stays the same)
@@ -505,7 +537,7 @@ export default function App() {
   const LANGS = [
     { code: "EN", label: "English",  Flag: FlagEN },
     { code: "RU", label: "Русский",  Flag: FlagRU },
-    { code: "AM", label: "Հայերեն", Flag: FlagAM },
+    { code: "AM", label: "Հայerеn", Flag: FlagAM },
   ];
 
   const getMenuCat = (item) => lang === "RU" ? item.categoryRU : lang === "AM" ? item.categoryAM : item.category;
@@ -520,7 +552,7 @@ export default function App() {
       {/* ── NAV ── */}
       <nav className={`nav ${scrolled ? "nav--scrolled" : ""}`}>
         <div className="nav__logo" onClick={() => scrollTo("hero")}>
-          <img src="/logo.png" alt="The Brunch" className="nav__logo-img" />
+          <img src="/logo1.png" alt="The Brunch" className="nav__logo-img" />
         </div>
         <ul className={`nav__links ${menuOpen ? "nav__links--open" : ""}`}>
           {t.nav.map((l, i) => (
@@ -687,7 +719,7 @@ export default function App() {
         <div className="container about__layout">
           <div className="about__visual reveal">
             <div className="about__img-block">
-            <div className="about__img-main" style={{ backgroundImage: "url('/visit.jpg')", backgroundSize: "cover", backgroundPosition: "center" }} />
+              <div className="about__img-main" />
               <div className="about__img-accent"><span>{t.aboutQuote}</span></div>
             </div>
           </div>
@@ -715,7 +747,7 @@ export default function App() {
                 <div className="review-card__stars">{"★".repeat(r.rating)}</div>
                 <p className="review-card__text">"{getReviewText(r)}"</p>
                 <div className="review-card__author">
-                  <div className="review-card__avatar">{r.avatar}</div>
+                  <div className="review-card__avatar">{r.avatar[lang] || r.avatar.EN}</div>
                   <span>{getReviewName(r)}</span>
                 </div>
               </div>
@@ -763,9 +795,6 @@ export default function App() {
                       <a className="visit__branch" href="https://maps.google.com/?q=Dalma+Garden+Mall,+Yerevan" target="_blank" rel="noreferrer">
                         <span className="visit__branch-num">2</span><span>{t.branch2}</span>
                       </a>
-                      <a className="visit__branch" href="https://maps.google.com/?q=The+Brunch+Cascade+Yerevan" target="_blank" rel="noreferrer">
-                        <span className="visit__branch-num">3</span><span>{t.branch3}</span>
-                      </a>
                     </div>
                   </div>
                 </div>
@@ -798,7 +827,7 @@ export default function App() {
             </div>
             <div className="visit__card reveal">
               <div className="visit__card-inner">
-                <div className="visit__card-logo"><img src="/logo.png" alt="The Brunch" /></div>
+                <div className="visit__card-logo"><img src="/logo1.png" alt="The Brunch" /></div>
                 <div className="visit__card-tag">{t.cardTag}</div>
                 <blockquote className="visit__card-quote">{t.cardQuote}</blockquote>
                 <div className="visit__card-divider" />
@@ -818,21 +847,30 @@ export default function App() {
       <footer className="footer">
         <div className="container footer__layout">
           <div className="footer__brand">
-            <img src="/logo.png" alt="The Brunch" className="footer__logo-img" />
+            <img src="/logo1.png" alt="The Brunch" className="footer__logo-img" />
             <p className="footer__tagline">{t.footerTagline}</p>
           </div>
-          
           <div className="footer__links">
             {t.nav.map((l, i) => (
               <button key={l} onClick={() => scrollTo(["menu","about","gallery","reviews","contact"][i])}>{l}</button>
             ))}
           </div>
           <div className="footer__contact">
-            <p>{t.branch1}</p><p>{t.branch2}</p><p>{t.branch3}</p>
+            <p>{t.branch1}</p><p>{t.branch2}</p>
             <p>+374 44 012 125</p><p>{t.hoursVal}</p>
           </div>
         </div>
-        <div className="footer__bottom"><p>{t.footerCopy}</p></div>
+        <div className="footer__bottom">
+          <p>{t.footerCopy}</p>
+          <a
+            href="https://t.me/apath_y0"
+            target="_blank"
+            rel="noreferrer"
+            className="footer__credit"
+          >
+            Made by Vahe Vardanyan
+          </a>
+        </div>
       </footer>
     </div>
   );
