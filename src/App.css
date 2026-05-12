@@ -413,9 +413,13 @@ body {
   .stats .container { grid-template-columns: repeat(2,1fr); }
   .stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
   .features__grid { grid-template-columns: 1fr; }
-  .gallery__grid { grid-template-columns: repeat(2,1fr); grid-template-rows: auto; }
-  .gallery__item--tall { grid-row: span 1; }
-  .gallery__item--wide { grid-column: span 1; }
+  .gallery__grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 180px);  /* fixed height — images need this to show! */
+    gap: 10px;
+  }
+  .gallery__item--tall { grid-row: span 1; }   /* no tall on mobile */
+  .gallery__item--wide { grid-column: span 1; } /* no wide on mobile */
   .reviews__grid { grid-template-columns: 1fr; }
   .review-card:nth-child(2) { transform: none; }
   .why-us__grid { grid-template-columns: 1fr; }
@@ -748,4 +752,16 @@ body {
 }
 .footer__credit:hover {
   color: rgba(255,255,255,0.5);
+}
+
+/* ── Mobile gallery: labels always visible, no hover needed ── */
+@media (max-width: 768px) {
+  .gallery__item-inner {
+    background: linear-gradient(to top, rgba(30,61,50,0.65) 0%, transparent 60%) !important;
+  }
+  .gallery__item-inner span {
+    color: rgba(255,255,255,0.95) !important;
+    font-size: 12px !important;
+  }
+  .gallery__item:hover { transform: none; } /* disable scale on touch */
 }
